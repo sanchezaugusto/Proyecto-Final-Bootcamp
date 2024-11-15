@@ -1,22 +1,24 @@
 "use client";
 import { createContext, useContext, useState, useEffect, ReactNode } from "react";
 
-export interface CartItem {
-    id: number;
-    title: string;
-    price: number;
-    quantity: number;
-    image: string
-}
+// FIJARSE SI SIRVEN ESTOS TYPES O VER DE LA CARPETA TYPES
 
-interface CartContextType {
-    cart: CartItem[];
-    totalItems: number;
-    addToCart: (product: CartItem) => void;
-    substractOneFromCart: (product: CartItem) => void;
-    removeFromCart: (id: number) => void;
-    clearCart: () => void;
-}
+// export interface CartItem {
+//     id: number;
+//     title: string;
+//     price: number;
+//     quantity: number;
+//     image: string
+// }
+
+// interface CartContextType {
+//     cart: CartItem[];
+//     totalItems: number;
+//     addToCart: (product: CartItem) => void;
+//     substractOneFromCart: (product: CartItem) => void;
+//     removeFromCart: (id: number) => void;
+//     clearCart: () => void;
+// }
 
 const CartContext = createContext<CartContextType | undefined>(undefined);
 
