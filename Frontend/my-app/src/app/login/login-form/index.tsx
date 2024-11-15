@@ -5,7 +5,7 @@ import { useState } from "react";
 import { formLogin } from "../../../actions/authActions";
 import { useRouter } from "next/navigation";
 import {signIn, useSession, signOut} from 'next-auth/react'
-import { GoogleSignInButton } from "@/components/buttons/google-login-button";
+import { GoogleSignInButton } from "@/components/buttons/google-sign-in-button";
 
 
 export default function LoginForm() {

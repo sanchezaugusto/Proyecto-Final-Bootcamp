@@ -20,34 +20,24 @@ const ProductCard: React.FC<ProductCardProps> = ({ product }) => {
   };
 
   return (
-    
     <div
       onClick={handleClick}
-      className="h-[600px] bg-white py-8 px-4 border border-gray-300 rounded-2xl flex flex-col items-center justify-between text-slate-900 shadow-xl gap-4"
+      className="max-w-sm rounded overflow-hidden shadow-lg hover:shadow-xl transition-shadow duration-300 ease-in-out cursor-pointer flex flex-col justify-between"
     >
-      <div className="flex flex-col justify-center items-center gap-4">
-
-        <figure className="w-full h-[230px] overflow-hidden cursor-pointer">
-            <img
-              src={product.image}
-              alt={product.title}
-              className="w-full h-full object-contain transition-all hover:scale-110"
-            />
-        </figure>
-
-
-        <h2 className="mt-2h-[40px] w-[300px] truncate line-clamp-3 font-bold text-lg md:text-xl text-center">
-          {product.title}
-        </h2>
-
-        <p className="max-w-[280px] h-[100px] text-gray-500 text-sm md:text-base text-center line-clamp-3">
-          {truncateText(product.description, 60)}
-        </p>
-        
-        <p className="font-bold text-center text-xl">Precio: ${product.price}</p>
-      
+      <div>
+        <img
+          src={product.image}
+          alt={product.title}
+          className="w-full h-48 object-cover"
+        />
+      <div className="px-6 py-4">
+        <div className="font-bold text-xl mb-2">{product.title}</div>
+        <p className="text-gray-700 text-base">{truncateText(product.description, 60)}</p>
+        </div>
       </div>
-
+      <div className="px-6 pt-4 pb-2">
+        <span className="text-gray-900 font-bold text-lg">${product.price}</span>
+      </div>
     </div>
   );
 };
