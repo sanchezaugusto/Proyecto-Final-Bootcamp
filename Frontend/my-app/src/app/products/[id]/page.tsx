@@ -2,7 +2,7 @@
 "use client";
 
 import React, { useState, useEffect } from "react";
-import ButtonInput from "@/components/buttons/input-cart/ButtonInput";
+import ButtonInput from "@/components/buttons/input/ButtonInput";
 import AddToCartButton from "@/components/buttons/add-cart-button/AddToCartButton";
 import Loader from "@/components/loaders/Loader";
 
