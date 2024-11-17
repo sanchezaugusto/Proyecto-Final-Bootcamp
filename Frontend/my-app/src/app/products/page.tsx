@@ -47,9 +47,9 @@ export default function ProductsPage() {
     }, [searchQuery]);
 
     if (loading) {
-        return <div className='w-full h-full grid place-items-center'>
-            <div className="relative w-16 h-16 rounded-full animate-spin before:absolute before:w-full before:h-full before:rounded-full before:bg-gradient-to-b before:from-pink-500 before:to-purple-500 after:absolute after:w-[85%] after:h-[85%] after:bg-white after:rounded-full after:top-1/2 after:left-1/2 after:-translate-x-1/2 after:-translate-y-1/2"></div>
-        </div>
+        return  <div className='w-full min-h-screen flex justify-center items-center'>
+                    <div className="relative w-16 h-16 rounded-full animate-spin before:absolute before:w-full before:h-full before:rounded-full before:bg-gradient-to-b before:from-pink-500 before:to-purple-500 after:absolute after:w-[85%] after:h-[85%] after:bg-white after:rounded-full after:top-1/2 after:left-1/2 after:-translate-x-1/2 after:-translate-y-1/2"></div>
+                </div>
 
         /* return <div className="flex items-center justify-center min-h-screen">Loading...</div>; */
     }
@@ -59,9 +59,9 @@ export default function ProductsPage() {
     }
 
     return (
-        <div className="bg-gray-100 min-h-screen p-8">
+        <div className="bg-gray-100 min-h-screen p-8 ">
             <h1 className="text-4xl font-bold mb-8 text-center text-gray-800">Productos</h1>
-            <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 gap-6">
+            <div className="max-w-[1250px] mx-auto p-4 grid gap-6 sm:grid-cols-2 md:grid-cols-3">
                 {products.map(product => (
                     <ProductCard key={product.id} product={product} />
                 ))}
