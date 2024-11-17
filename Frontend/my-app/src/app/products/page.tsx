@@ -3,6 +3,7 @@ import { useEffect, useState } from 'react';
 import { useSearchParams } from 'next/navigation';
 import { Product } from '../../types/product';
 import ProductCard from '../../components/product-card';
+import Loader from '@/components/loaders/Loader';
 
 export default function ProductsPage() {
     const searchParams = useSearchParams();
@@ -47,9 +48,7 @@ export default function ProductsPage() {
     }, [searchQuery]);
 
     if (loading) {
-        return  <div className='w-full min-h-screen flex justify-center items-center'>
-                    <div className="relative w-16 h-16 rounded-full animate-spin before:absolute before:w-full before:h-full before:rounded-full before:bg-gradient-to-b before:from-pink-500 before:to-purple-500 after:absolute after:w-[85%] after:h-[85%] after:bg-white after:rounded-full after:top-1/2 after:left-1/2 after:-translate-x-1/2 after:-translate-y-1/2"></div>
-                </div>
+        return  <Loader />
 
         /* return <div className="flex items-center justify-center min-h-screen">Loading...</div>; */
     }
