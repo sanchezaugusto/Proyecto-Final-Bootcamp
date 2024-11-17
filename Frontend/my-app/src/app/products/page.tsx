@@ -17,7 +17,7 @@ export default function ProductsPage() {
             try {
                 const baseUrl = `https://fakestoreapi.com/products`;
                 const url = searchQuery ? `${baseUrl}?search=${encodeURIComponent(searchQuery)}` : baseUrl;
-                
+
                 const response = await fetch(url);
                 console.log("el url es", url);
 
@@ -44,10 +44,14 @@ export default function ProductsPage() {
         };
 
         fetchProducts();
-    }, [searchQuery]); 
+    }, [searchQuery]);
 
     if (loading) {
-        return <div className="flex items-center justify-center min-h-screen">Loading...</div>;
+        return <div className='w-full h-full grid place-items-center'>
+            <div className="relative w-16 h-16 rounded-full animate-spin before:absolute before:w-full before:h-full before:rounded-full before:bg-gradient-to-b before:from-pink-500 before:to-purple-500 after:absolute after:w-[85%] after:h-[85%] after:bg-white after:rounded-full after:top-1/2 after:left-1/2 after:-translate-x-1/2 after:-translate-y-1/2"></div>
+        </div>
+
+        /* return <div className="flex items-center justify-center min-h-screen">Loading...</div>; */
     }
 
     if (error) {
