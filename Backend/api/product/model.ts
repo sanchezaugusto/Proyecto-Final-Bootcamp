@@ -20,15 +20,18 @@ const productSchema = new Schema({
   category_id: {
     type: Schema.Types.ObjectId,
     ref: "Category",
-    required: true,
+   // required: true,
+    required: false,
   },
   salers_id: {
     type: Schema.Types.ObjectId,
     ref: "User",
-    required: true,
+    // required: true,
+    required: false,
   },
-  images: {
-    type: [String],
+  image: {
+   type: [String],
+    // type: String,
     required: true,
   },
 });

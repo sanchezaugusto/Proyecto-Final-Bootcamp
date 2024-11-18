@@ -17,7 +17,8 @@ export interface IProduct {
   description?: string;
   price?: number;
   stock?: number;
-  image?: string;
+  // image?: string;
+  image?: string[];
 }
 
 export interface ICart {

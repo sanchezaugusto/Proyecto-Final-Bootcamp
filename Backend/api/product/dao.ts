@@ -40,12 +40,13 @@ class ProductDao {
     }
   }
   async createProduct(product: IProduct) {
-    console.log(product);
+    console.log("Product input to save DAO:", product); // Debug
     try {
       const newProduct = await Product.create(product);
-      console.log(newProduct);
+      console.log("Product created DAO:", newProduct);
       return newProduct;
     } catch (error) {
+      console.error('Error in DAO:', error);
       throw Error((error as Error).message);
     }
   }
