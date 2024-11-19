@@ -1,10 +1,11 @@
 import Link from 'next/link';
 import React from 'react';
+import './Header.css'
 
 export default function Header() {
   return (
-    <header className='flex p-5 justify-center w-full fixed top-0 z-10'>
-      <div className="container mx-auto grid grid-cols-6 items-center px-6 py-4 text-white">
+    <header className='header-nav flex py-2 justify-center w-full fixed top-0 z-10'>
+      <div className="container mx-auto grid grid-cols-6 items-center px-6 py-4">
         {/* Logo */}
         <h1 className="text-xl font-bold col-span-1">
           <Link className="hover:text-gray-400 transition-colors" href="/">
@@ -13,7 +14,7 @@ export default function Header() {
         </h1>
 
         {/* Navigation */}
-        <nav className="flex justify-center col-span-4 gap-6">
+        <nav className="flex justify-center col-span-4 gap-6 font-bold">
           <Link className="hover:text-gray-400 transition-colors" href="/">
             Home
           </Link>

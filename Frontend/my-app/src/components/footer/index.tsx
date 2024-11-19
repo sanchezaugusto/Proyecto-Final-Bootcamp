@@ -28,6 +28,36 @@ export default function Footer() {
           </nav>
         </div>
 
+        
+
+        {/* Redes Sociales */}
+        <div className="mt-8 md:mt-0">
+          <h2 className="text-xl font-semibold mb-4">Síguenos</h2>
+          <div className="flex space-x-4">
+            <a
+              href="#"
+              className="text-gray-400 hover:text-white transition-colors"
+              aria-label="Facebook"
+            >
+              <i className="fab fa-facebook-f"></i>
+            </a>
+            <a
+              href="#"
+              className="text-gray-400 hover:text-white transition-colors"
+              aria-label="Twitter"
+            >
+              <i className="fab fa-twitter"></i>
+            </a>
+            <a
+              href="#"
+              className="text-gray-400 hover:text-white transition-colors"
+              aria-label="Instagram"
+            >
+              <i className="fab fa-instagram"></i>
+            </a>
+          </div>
+        </div>
+
         {/* Formulario de Contacto */}
         <div className="max-w-[400px] flex-1 md:px-8">
           <h2 className="text-xl font-semibold mb-4">Contáctanos</h2>
@@ -74,33 +104,7 @@ export default function Footer() {
           </form>
         </div>
 
-        {/* Redes Sociales */}
-        <div className="mt-8 md:mt-0">
-          <h2 className="text-xl font-semibold mb-4">Síguenos</h2>
-          <div className="flex space-x-4">
-            <a
-              href="#"
-              className="text-gray-400 hover:text-white transition-colors"
-              aria-label="Facebook"
-            >
-              <i className="fab fa-facebook-f"></i>
-            </a>
-            <a
-              href="#"
-              className="text-gray-400 hover:text-white transition-colors"
-              aria-label="Twitter"
-            >
-              <i className="fab fa-twitter"></i>
-            </a>
-            <a
-              href="#"
-              className="text-gray-400 hover:text-white transition-colors"
-              aria-label="Instagram"
-            >
-              <i className="fab fa-instagram"></i>
-            </a>
-          </div>
-        </div>
+
       </div>
 
       {/* Línea divisoria */}
