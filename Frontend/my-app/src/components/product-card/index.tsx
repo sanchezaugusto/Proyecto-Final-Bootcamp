@@ -27,7 +27,7 @@ const ProductCard: React.FC<ProductCardProps> = ({ product }) => {
         <img
           src={product.image}
           alt={product.title}
-          className="w-full h-48 p-4 object-contain bg-white transition-all hover:scale-110"
+          className="w-full h-64 p-4 object-contain bg-white transition-all hover:scale-110"
         />
       </div>
 
