@@ -1,6 +1,6 @@
 import Category from "./model";
 
-class CatetegoryDao {
+class CategoryDao {
   async getCategories() {
     try {
       return await Category.find();
@@ -20,7 +20,7 @@ class CatetegoryDao {
     try {
       const updatedCategory = await Category.findByIdAndUpdate(
         id,
-        { category },
+        { name: category },
         { new: true }
       );
       return updatedCategory;
@@ -38,6 +38,6 @@ class CatetegoryDao {
   }
 }
 
-const categoryDao = new CatetegoryDao();
+const categoryDao = new CategoryDao();
 
 export default categoryDao;

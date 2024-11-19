@@ -5,6 +5,12 @@ const CategorySchema = new Schema({
     type: String,
     required: true,
   },
+  subCategory:[
+    {
+      type: Schema.Types.ObjectId,
+      ref: "Category"
+    }
+  ]
 });
 
 const Category = model("Category", CategorySchema);
