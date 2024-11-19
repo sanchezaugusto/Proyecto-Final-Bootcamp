@@ -28,10 +28,13 @@ class UserDao {
     }
   }
   async createUser(user: IUser) {
+    console.log("User input to save DAO:", user); // Debug
     try {
       const newUser = await User.create(user);
+      console.log("User created DAO:", newUser);
       return newUser;
     } catch (error) {
+      console.error('Error in DAO:', error);
       throw Error((error as Error).message);
     }
   }

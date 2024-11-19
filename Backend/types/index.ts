@@ -8,7 +8,7 @@ export interface IUser {
   email: string;
   password: string;
   role?: UserRole;
-  avatar: string | undefined;
+  image: string | undefined;
 }
 
 export interface IProduct {

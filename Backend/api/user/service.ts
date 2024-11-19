@@ -3,6 +3,8 @@ import { userDao } from "./dao";
 import { compare } from "bcrypt";
 import { sign } from "jsonwebtoken";
 import { config } from "dotenv";
+import fs from "fs";
+import cloudinary from "../../config/cloudinary";
 
 config();
 
@@ -41,12 +43,29 @@ class UserService {
       throw Error((error as Error).message);
     }
   }
-  async createUser(user: IUser) {
+  async createUser(userData: IUser, filePath: string) {
     try {
-      const newUser = await createUser(user);
-      return newUser;
+      // Subir la imagen a Cloudinary
+      const uploadResult = await cloudinary.uploader.upload(filePath, {
+        folder: 'users',
+      });
+
+      // Eliminar el archivo temporal después de subirlo
+      fs.unlinkSync(filePath);
+
+      // Preparar los datos del usuario
+      const user = {
+        ...userData,
+        image: uploadResult.secure_url, // Agregar la URL de la imagen
+      };
+
+      console.log('User input to save service:', user);
+
+      // Guardar en la base de datos
+      return await createUser(user);
     } catch (error) {
-      throw Error((error as Error).message);
+      console.error('Error in service:', error);
+      throw new Error((error as Error).message);
     }
   }
   async loginUser(user: { email: string; password: string }) {
@@ -76,13 +95,13 @@ class UserService {
     }
   }
   async editUser(id: string, user: IUser) {
-    const { firts_name, last_name, user_name, email, avatar } = user;
+    const { firts_name, last_name, user_name, email, image } = user;
     const dbPayload = {
       ...(firts_name ? { firts_name } : {}),
       ...(last_name ? { last_name } : {}),
       ...(user_name ? { user_name } : {}),
       ...(email ? { email } : {}),
-      ...(avatar ? { avatar } : {}),
+      ...(image ? { image } : {}),
     };
     try {
       const editedUser = await editUser(id, dbPayload);

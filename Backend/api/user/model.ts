@@ -31,7 +31,7 @@ const userSchema = new Schema({
     enum: ["admin", "comprador", "vendedor" ],
     default: "comprador",
   },
-  avatar: {
+  image: {
     type: String,
     default: "",
   },

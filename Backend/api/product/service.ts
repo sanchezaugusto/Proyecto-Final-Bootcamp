@@ -4,7 +4,6 @@ import { productDao } from "./dao";
 import fs from "fs";
 import cloudinary from "../../config/cloudinary";
 
-
 const {
   getAllProducts,
   getProductById,

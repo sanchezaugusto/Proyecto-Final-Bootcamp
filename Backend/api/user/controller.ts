@@ -42,10 +42,20 @@ class UserController {
   }
   async createUser(req: Request, res: Response) {
     try {
-      const user = await createUser(req.body);
-      return res.status(201).json(user);
+      const userBody = req.body;
+      const file = req.file; // El archivo cargado
+  
+      if (!file) {
+        res.status(400).json({ message: 'No file uploaded' });
+        return;
+      }
+  
+      // Delegar al servicio
+      const user = await createUser(userBody, file.path);
+      res.status(201).json(user);
     } catch (error) {
-      return res.status(400).json({ error: (error as Error).message });
+      console.error('Error creating user:', error);
+      res.status(500).json({ message: 'Server error', error: (error as Error).message });
     }
   }
   async loginUser(req: Request, res: Response) {
@@ -57,6 +67,7 @@ class UserController {
       return res.status(400).json({ error: (error as Error).message });
     }
   }
+  
   async deleteUser(req: Request, res: Response) {
     try {
       const user = await deleteUser(req.params.id);
