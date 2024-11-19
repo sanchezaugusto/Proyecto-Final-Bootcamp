@@ -23,6 +23,12 @@ const productSchema = new Schema({
    // required: true,
     required: false,
   },
+  subCategotyID:{
+    type: Schema.Types.ObjectId,
+    ref: "Category",
+   // required: true,
+    required: false,
+  },
   salers_id: {
     type: Schema.Types.ObjectId,
     ref: "User",

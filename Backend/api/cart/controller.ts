@@ -17,7 +17,7 @@ class CartController {
       const getCartById = await getCart(req.params.id)
       return getCartById
     } catch (error) {
-      throw Error((error as Error).message);
+      return res.status(500).json({ error });
     }
   }
   async addCart(req: Request, res: Response) {
@@ -43,7 +43,7 @@ class CartController {
       const deletedCart = await deleteCart(id)
       return deletedCart
     } catch (error) {
-      return res.status(500).json({ error: "Cart not found" });
+      return res.status(500).json({ error: "The change is not found" });
     }
   }
   // async confirmCart(req: Request, res: Response) {

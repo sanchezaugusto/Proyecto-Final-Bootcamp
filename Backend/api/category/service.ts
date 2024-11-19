@@ -6,28 +6,32 @@ const { getCategories, createCategory, updateCategory, deleteCategory } =
 class CaterogySercice {
   async getCategories() {
     try {
-      return await getCategories();
+      const categories = await getCategories()
+      return categories;
     } catch (error) {
       throw Error((error as Error).message);
     }
   }
   async createCategory(category: string) {
     try {
-      return await createCategory(category);
+      const newCategory = await createCategory(category)
+      return newCategory;
     } catch (error) {
       throw Error((error as Error).message);
     }
   }
   async updateCategory(id: string, category: string) {
     try {
-      return await updateCategory(id, category);
+      const editCategory = await updateCategory(id, category)
+      return editCategory;
     } catch (error) {
       throw Error((error as Error).message);
     }
   }
   async deleteCategory(id: string) {
     try {
-      return await deleteCategory(id);
+      const deletedCategory = await deleteCategory(id)
+      return deletedCategory;
     } catch (error) {
       throw Error((error as Error).message);
     }

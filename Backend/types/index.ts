@@ -19,10 +19,19 @@ export interface IProduct {
   stock?: number;
   // image?: string;
   image?: string[];
+  categoryId: string;
+  subCategoryId?: string
 }
 
 export interface ICart {
   user_id: string;
   products: { product_id: string; quantity: number }[];
   totalPrice: number;
+}
+
+export interface ICategory {
+  _id: string | undefined;
+  name: string;
+  // no todas las categorías tendrán subcategorías, es opcional por eso el '?'
+  subCategories?: ICategory[] 
 }
