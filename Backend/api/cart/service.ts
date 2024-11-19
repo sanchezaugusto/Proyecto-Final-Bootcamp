@@ -1,7 +1,7 @@
 import { ICart } from "../../types";
 import { cartDao } from "./dao";
 
-const { addCart, getCarts } = cartDao;
+const { addCart, getCarts, getCart, updateCart, deleteCart} = cartDao;
 
 class CartService {
   async getCarts() {
@@ -10,6 +10,14 @@ class CartService {
       return carts;
     } catch (error) {
       throw Error((error as Error).message);
+    }
+  }
+  async getCart(id: string){
+    try {
+      const getCartById = await getCart(id)
+      return getCartById
+    } catch (error) {
+      
     }
   }
   async addCart(cart: ICart) {
@@ -22,8 +30,16 @@ class CartService {
   }
   async updateCart(id: string, cart: ICart) {
     try {
-      const updatedCart = await cartDao.updateCart(id, cart);
+      const updatedCart = await updateCart(id, cart);
       return updatedCart;
+    } catch (error) {
+      throw Error((error as Error).message);
+    }
+  }
+  async deleteCart(id: string){
+    try {
+      const deletedCart= await deleteCart(id)
+      return deletedCart
     } catch (error) {
       throw Error((error as Error).message);
     }

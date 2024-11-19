@@ -22,6 +22,7 @@ export interface IProduct {
 }
 
 export interface ICart {
+  user_id: string;
   products: { product_id: string; quantity: number }[];
   totalPrice: number;
 }
