@@ -16,8 +16,8 @@ class SubCategoryController {
     // solamente recibe el name
     async createCategory(req: Request, res: Response) {
       try {
-        const { name } = req.body;
-        const newSubCategory = await createSubCategory( name );
+        const subCategory = req.body;
+        const newSubCategory = await createSubCategory( subCategory );
         res.status(201).json(newSubCategory);
       } catch (error) {
         res.status(500).json({ error: (error as Error).message });
@@ -26,7 +26,11 @@ class SubCategoryController {
     async createSubCategory(req: Request, res: Response) {
       try {
         const { name } = req.body;
-        const newSubCategory = await createSubCategory(name);
+        // // hace q funcione porq valida el nombre
+        // if (!name) {
+        //   return res.status(400).json({ error: "El campo 'name' es obligatorio." });
+        // }
+        const newSubCategory = await createSubCategory({ name });
         res.status(201).json(newSubCategory);
       } catch (error) {
         res.status(500).json({ error: (error as Error).message });
