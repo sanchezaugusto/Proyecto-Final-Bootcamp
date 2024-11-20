@@ -13,6 +13,7 @@ class SubCategoryController {
         res.status(500).json({ error: (error as Error).message });
       }
     }
+    // solamente recibe el name
     async createCategory(req: Request, res: Response) {
       try {
         const { name } = req.body;

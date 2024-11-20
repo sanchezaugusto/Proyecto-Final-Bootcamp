@@ -2,7 +2,6 @@ import { ISubCategory } from "../../types";
 import SubCategory from "./model";
 
 class SubCategoryDao{
-
     async getSubCategories() {
         try {
           return await SubCategory.find();
