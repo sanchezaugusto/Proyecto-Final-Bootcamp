@@ -7,11 +7,8 @@ const CategorySchema = new Schema({
   },
   subCategories: [
     {
-      id: {
-        type: Schema.Types.ObjectId, // referencia a SubCategory q esta abajo
-        ref: "SubCategory",
-        //required: true,
-      },
+      type: Schema.Types.ObjectId, // referencia a SubCategory q esta abajo
+      ref: "SubCategory",
     },
   ],
 });

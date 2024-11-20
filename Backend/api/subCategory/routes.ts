@@ -11,7 +11,7 @@ subCategoryRouter.get("/", getSubCategories);
 
 //categoryRouter.use(adminRoutes);
 
-subCategoryRouter.post("/createSubCategory", createSubCategory);
+subCategoryRouter.post("/addSubCategory", createSubCategory);
 subCategoryRouter.put("/updateSubCategory/:id", updateSubCategory);
 subCategoryRouter.delete("/deleteSubCategory/:id", deleteSubCategory);
 
