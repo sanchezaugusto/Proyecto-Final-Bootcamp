@@ -19,8 +19,8 @@ export interface IProduct {
   stock?: number;
   // image?: string;
   image?: string[];
-  categoryId: string;
-  subCategoryId?: string
+  // categoryId: string;
+  // subCategoryId?: string
 }
 
 export interface ICart {
@@ -32,6 +32,10 @@ export interface ICart {
 export interface ICategory {
   _id: string | undefined;
   name: string;
-  // no todas las categorías tendrán subcategorías, es opcional por eso el '?'
-  subCategories?: ICategory[] 
+  subCategories?: { id: string }[]; // Array de objetos con campo `id`
+}
+
+export interface ISubCategory {
+  _id: string;
+  name: string;
 }
