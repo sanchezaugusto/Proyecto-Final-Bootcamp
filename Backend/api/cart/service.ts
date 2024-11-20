@@ -17,7 +17,7 @@ class CartService {
       const getCartById = await getCart(id)
       return getCartById
     } catch (error) {
-      
+      throw Error((error as Error).message);
     }
   }
   async addCart(cart: ICart) {

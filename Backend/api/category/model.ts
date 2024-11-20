@@ -5,13 +5,17 @@ const CategorySchema = new Schema({
     type: String,
     required: true,
   },
-  subCategory:[
+  subCategories: [
     {
-      type: Schema.Types.ObjectId,
-      ref: "Category"
-    }
-  ]
+      id: {
+        type: Schema.Types.ObjectId, // referencia a SubCategory q esta abajo
+        ref: "SubCategory",
+        //required: true,
+      },
+    },
+  ],
 });
+
 
 const Category = model("Category", CategorySchema);
 
