@@ -1,5 +1,4 @@
-/* eslint-disable @next/next/no-img-element */
-"use client";
+'use client';
 
 import React, { useState, useEffect } from "react";
 import ButtonInput from "@/components/buttons/input/ButtonInput";
@@ -9,7 +8,7 @@ import { useCart } from "@/context/CartContext";
 
 async function fetchProductById(id: string) {
   try {
-    const response = await fetch(`https://fakestoreapi.com/products/${id}`);
+    const response = await fetch(`${process.env.NEXT_PUBLIC_API_HOST}/products/${id}`);
     const data = await response.json();
     return data;
   } catch (error) {

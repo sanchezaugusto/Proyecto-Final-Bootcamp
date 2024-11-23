@@ -10,7 +10,7 @@ import { signIn } from "@/auth";
 
 export async function login(credentials: { email: string; password: string }) {
   try {
-    const result = await fetch(`http://localhost:5000/api/users/login`, {
+    const result = await fetch(`${process.env.NEXT_PUBLIC_API_HOST}/api/users/login`, {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
@@ -28,7 +28,7 @@ export async function login(credentials: { email: string; password: string }) {
 
 export async function getUserByMail(email: string) {
   try {
-    const result = await fetch(`http://localhost:5000/api/users?email=${email}`, {
+    const result = await fetch(`${process.env.NEXT_PUBLIC_API_HOST}/api/users?email=${email}`, {
       method: "GET",
       headers: {
         "Content-Type": "application/json",

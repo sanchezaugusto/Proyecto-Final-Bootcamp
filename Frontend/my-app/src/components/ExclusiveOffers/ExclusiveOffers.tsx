@@ -2,7 +2,7 @@
 
 import { useEffect, useState } from "react";
 import Image from "next/image";
-import { Product } from "../types/product";
+import { Product } from "@/types";
 import Loader from "../loaders/Loader";
 import Link from "next/link";
 
@@ -14,7 +14,7 @@ const ExclusiveOffers = () => {
     useEffect(() => {
         const fetchExclusiveOffers = async () => {
             try {
-                const response = await fetch("https://fakestoreapi.com/products");
+                const response = await fetch(`${process.env.NEXT_PUBLIC_API_HOST}/products`);
                 if (!response.ok) throw new Error("Error fetching products");
 
                 const data: Product[] = await response.json();

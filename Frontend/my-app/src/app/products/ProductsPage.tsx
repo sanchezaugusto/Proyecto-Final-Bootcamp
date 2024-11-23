@@ -25,7 +25,7 @@ export default function ProductsPage() {
   useEffect(() => {
     const fetchProducts = async () => {
       try {
-        const baseUrl = `https://fakestoreapi.com/products`;
+        const baseUrl = `${process.env.NEXT_PUBLIC_API_HOST}`;
         const url = searchQuery ? `${baseUrl}?search=${encodeURIComponent(searchQuery)}` : baseUrl;
 
         const response = await fetch(url);
