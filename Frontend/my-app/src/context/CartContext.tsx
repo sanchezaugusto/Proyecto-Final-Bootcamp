@@ -1,4 +1,5 @@
 "use client";
+import Product from "@/types/product";
 import { createContext, useContext, useState, useEffect, ReactNode } from "react";
 
 // FIJARSE SI SIRVEN ESTOS TYPES O VER DE LA CARPETA TYPES
@@ -23,7 +24,11 @@ import { createContext, useContext, useState, useEffect, ReactNode } from "react
 const CartContext = createContext<CartContextType | undefined>(undefined);
 
 export function CartProvider({ children }: { children: ReactNode }) {
-    const [cart, setCart] = useState<CartItem[]>([]);
+    let storedCart: Product[] = []
+    if(localStorage.getItem("cart")){
+        storedCart = JSON.parse(localStorage.getItem("cart"))
+    }
+    const [cart, setCart] = useState<Product[]>(storedCart);
     const [totalItems, setTotalItems] = useState(0);
 
     useEffect(() => {
@@ -31,13 +36,13 @@ export function CartProvider({ children }: { children: ReactNode }) {
         localStorage.setItem("cart", JSON.stringify(cart));
     }, [cart]);
 
-    const addToCart = (product: CartItem) => {
+    const addToCart = (product: Product) => {
         setCart((prevCart) => {
             const existingItem = prevCart.find(item => item.id === product.id);
             if (existingItem) {
                 return prevCart.map(item =>
                     item.id === product.id
-                        ? { ...item, quantity: item.quantity + product.quantity }
+                        ? { ...item, quantity: item.quantity + 1 }
                         : item
                 );
             } else {
@@ -46,7 +51,7 @@ export function CartProvider({ children }: { children: ReactNode }) {
         });
     };
 
-    const substractOneFromCart = (product: CartItem) => {
+    const substractOneFromCart = (product: Product) => {
         setCart((prevCart) => {
             return prevCart
                 .map(item =>
@@ -58,7 +63,7 @@ export function CartProvider({ children }: { children: ReactNode }) {
             })
     };
 
-    const removeFromCart = (id: number) => {
+    const removeFromCart = (id: string) => {
         setCart((prevCart) => prevCart.filter(item => item.id !== id));
     };
 

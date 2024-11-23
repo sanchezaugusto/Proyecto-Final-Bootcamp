@@ -3,7 +3,8 @@ import { useRouter } from "next/navigation";
 import AddToCartButton from "../buttons/add-cart-button/AddToCartButton";
 
 interface ProductCardProps {
-  product: Product;
+  product: Product,
+  addToCart: (product: Product) => void;
 }
 
 const truncateText = (text: string, maxLength: number) => {
@@ -13,7 +14,7 @@ const truncateText = (text: string, maxLength: number) => {
   return text.substring(0, maxLength) + '...';
 };
 
-const ProductCard: React.FC<ProductCardProps> = ({ product }) => {
+const ProductCard: React.FC<ProductCardProps> = ({ product, addToCart }) => {
   const router = useRouter();
 
   const handleClick = () => {
@@ -21,9 +22,9 @@ const ProductCard: React.FC<ProductCardProps> = ({ product }) => {
   };
 
   return (
-    <div onClick={handleClick} className="max-w-sm rounded-2xl overflow-hidden shadow-lg hover:shadow-xl transition-shadow duration-300 ease-in-out cursor-pointer flex flex-col justify-between">
-
-      <div className="overflow-hidden">
+    <div className="max-w-sm rounded-2xl overflow-hidden shadow-lg hover:shadow-xl transition-shadow duration-300 ease-in-out cursor-pointer flex flex-col justify-between">
+  
+      <div onClick={handleClick} className="overflow-hidden">
         <img
           src={product.image}
           alt={product.title}
@@ -42,7 +43,7 @@ const ProductCard: React.FC<ProductCardProps> = ({ product }) => {
         </div>
 
         <div>
-          <AddToCartButton />
+          <AddToCartButton onClick={() => {addToCart(product)}}/>
         </div>
       </div>
     </div>
