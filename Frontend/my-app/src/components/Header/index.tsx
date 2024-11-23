@@ -4,7 +4,7 @@ import './Header.css'
 
 export default function Header() {
   return (
-    <header className='header-nav flex py-2 justify-center w-full  top-0 z-10'>
+    <header className='header-nav flex py-2 justify-center w-full sticky top-0 z-10'>
       <div className="container mx-auto grid grid-cols-6 items-center px-6 py-4">
         {/* Logo */}
         <h1 className="text-xl font-bold col-span-1">

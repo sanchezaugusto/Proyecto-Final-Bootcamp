@@ -20,7 +20,7 @@ export default function ProductsPage() {
   const [loading, setLoading] = useState<boolean>(true);
   const [error, setError] = useState<string | null>(null);
 
-  const {addToCart} = useCart()
+  const {addOneToCart} = useCart()
 
   useEffect(() => {
     const fetchProducts = async () => {
@@ -88,7 +88,7 @@ export default function ProductsPage() {
           <InputSearch />
           <div className="max-w-[1250px] mx-auto grid gap-6 sm:grid-cols-2 md:grid-cols-3">
             {filteredProducts.map((product) => (
-              <ProductCard key={product.id} product={product} addToCart={addToCart} />
+              <ProductCard key={product.id} product={product} addToCart={addOneToCart} />
             ))}
           </div>
         </div>
