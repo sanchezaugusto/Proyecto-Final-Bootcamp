@@ -5,11 +5,9 @@ const CategorySchema = new Schema({
     type: String,
     required: true,
   },
-<<<<<<< Updated upstream
+
   subCategories: [
-=======
-  subCategories:[
->>>>>>> Stashed changes
+
     {
       type: Schema.Types.ObjectId, // referencia a SubCategory q esta abajo
       ref: "SubCategory",
