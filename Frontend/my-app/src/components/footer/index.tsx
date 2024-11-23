@@ -1,7 +1,7 @@
 // components/Footer.jsx
 export default function Footer() {
   return (
-    <footer className="bg-black text-white py-10">
+    <footer className="bg-black text-white py-10 mt-auto">
       <div className="container mx-auto flex flex-col md:flex-row justify-between">
         {/* Sección Izquierda */}
         <div className="mb-8 md:mb-0">

@@ -1,8 +1,9 @@
 import React from 'react';
 
-const AddToCartButton = () => {
+const AddToCartButton = ({onClick}) => {
   return (
     <button 
+    onClick={onClick}
     className="py-3 px-5 
              bg-gray-900 text-white 
                flex gap-2 

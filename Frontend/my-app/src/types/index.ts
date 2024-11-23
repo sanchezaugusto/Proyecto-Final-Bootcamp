@@ -4,4 +4,12 @@ export interface IUser {
     username: string;
     email: string;
   }
+
+export interface CartItem {
+  id: number;
+  title: string;
+  price: number;
+  quantity: number;
+  image: string
+}
   

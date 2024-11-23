@@ -9,6 +9,9 @@
     "lint": "next lint"
   },
   "dependencies": {
+    "class-variance-authority": "^0.7.0",
+    "clsx": "^2.1.1",
+    "lucide-react": "^0.460.0",
     "mercadopago": "^2.0.15",
     "next": "15.0.3",
     "next-auth": "^5.0.0-beta.25",

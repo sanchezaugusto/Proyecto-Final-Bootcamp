@@ -8,6 +8,7 @@ import Loader from "@/components/loaders/Loader";
 import InputSearch from "@/components/buttons/input/InputSearch";
 import { useFilter } from "@/context/FilterContext";
 import FilterSidebar from "@/components/FilterSidebar/FilterSidebar";
+import { useCart } from "@/context/CartContext";
 
 export default function ProductsPage() {
   const searchParams = useSearchParams();
@@ -18,6 +19,8 @@ export default function ProductsPage() {
   const [filteredProducts, setFilteredProducts] = useState<Product[]>([]);
   const [loading, setLoading] = useState<boolean>(true);
   const [error, setError] = useState<string | null>(null);
+
+  const {addOneToCart} = useCart()
 
   useEffect(() => {
     const fetchProducts = async () => {
@@ -85,7 +88,7 @@ export default function ProductsPage() {
           <InputSearch />
           <div className="max-w-[1250px] mx-auto grid gap-6 sm:grid-cols-2 md:grid-cols-3">
             {filteredProducts.map((product) => (
-              <ProductCard key={product.id} product={product} />
+              <ProductCard key={product.id} product={product} addToCart={addOneToCart} />
             ))}
           </div>
         </div>

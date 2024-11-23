@@ -5,6 +5,7 @@ import React, { useState, useEffect } from "react";
 import ButtonInput from "@/components/buttons/input/ButtonInput";
 import AddToCartButton from "@/components/buttons/add-cart-button/AddToCartButton";
 import Loader from "@/components/loaders/Loader";
+import { useCart } from "@/context/CartContext";
 
 async function fetchProductById(id: string) {
   try {
@@ -40,6 +41,13 @@ export default function Page({ params }: { params: { id: string } }) {
   const [rating, setRating] = useState(0);
   const [comments, setComments] = useState<string[]>([]);
   const [newComment, setNewComment] = useState("");
+  const {addToCart} = useCart()
+
+  const handleAddToCart = () =>{
+    const productToAdd = {...product}
+    productToAdd.quantity = cantidad
+    addToCart(productToAdd)
+  }
 
   useEffect(() => {
     const getProductData = async () => {
@@ -104,7 +112,7 @@ export default function Page({ params }: { params: { id: string } }) {
               readOnly
             />
             <ButtonInput onClick={handleIncrease}>+</ButtonInput>
-            <AddToCartButton />
+            <AddToCartButton onClick={handleAddToCart} />
           </div>
 
           <div className="mt-6 md:mt-10">
