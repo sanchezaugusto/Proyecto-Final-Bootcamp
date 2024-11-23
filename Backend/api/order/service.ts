@@ -1,9 +1,8 @@
 import orderDao from "./dao";
 import { productDao } from "../product/dao";
-import { IProduct } from "../../types";
 import { IOrder, IOrderProduct } from "./types";
 
-const { createOrder, getOrderById, getOrdersByUserId } = orderDao;
+const { createOrder, getOrderById, getOrdersByUserId, findOrdersBySellerId } = orderDao;
 const { editProduct, getProductById } = productDao;
 
 class OrderService {
@@ -15,6 +14,7 @@ class OrderService {
       throw Error((error as Error).message);
     }
   }
+
   async getOrderById(id: string) {
     try {
       const order = await getOrderById(id);
@@ -23,6 +23,7 @@ class OrderService {
       throw Error((error as Error).message);
     }
   }
+
   async createOrder(order: IOrder) {
     const { products } = order;
     try {
@@ -39,6 +40,15 @@ class OrderService {
       });
 
       return newOrder;
+    } catch (error) {
+      throw Error((error as Error).message);
+    }
+  }
+
+  async getOrdersBySellerId(sellerId: string) {
+    try {
+      const salesHistory = await findOrdersBySellerId(sellerId);
+      return salesHistory;
     } catch (error) {
       throw Error((error as Error).message);
     }
