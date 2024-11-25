@@ -4,6 +4,7 @@ import ExclusiveOffers from "../ExclusiveOffers/ExclusiveOffers"
 import PaymentMethods from "../PaymentMethods/PaymentMethods"
 import HeroSection from "../HeroSection/HeroSection"
 import FeaturesSection from "../FeaturesSection/FeaturesSection"
+import BannersSlide from "../BannersSlide/BannersSlide"
 
 const Home = () => {
     return (
@@ -12,7 +13,12 @@ const Home = () => {
             <HeroSection />
 
             <ExclusiveOffers />
-            
+
+            {/* Banners Section */}
+            <div className="container px-6 mx-auto">
+                <BannersSlide />
+            </div>
+
             {/* Features Section */}
             <FeaturesSection />
 
