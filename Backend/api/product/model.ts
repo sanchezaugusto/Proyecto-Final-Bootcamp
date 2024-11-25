@@ -20,10 +20,9 @@ const productSchema = new Schema({
   category_id: {
     type: Schema.Types.ObjectId,
     ref: "Category",
-   // required: true,
-    required: false,
+    required: true,
   },
-  subCategotyID:{
+  subCategory_id:{
     type: Schema.Types.ObjectId,
     ref: "Category",
    // required: true,
@@ -32,12 +31,10 @@ const productSchema = new Schema({
   salers_id: {
     type: Schema.Types.ObjectId,
     ref: "User",
-    // required: true,
-    required: false,
+    required: true,
   },
   image: {
    type: [String],
-    // type: String,
     required: true,
   },
 });

@@ -10,6 +10,7 @@ const {
   createProduct,
   editProduct,
   deleteProduct,
+  getProductByUserId,
 } = productDao;
 
 class ProductService {
@@ -54,6 +55,16 @@ class ProductService {
         keyword
       );
 
+      return products;
+    } catch (error) {
+      throw Error((error as Error).message);
+    }
+  }
+
+  async getProductByUserId(id: string) {
+    console.log('ID:', id); // Debug 
+    try {
+      const products = await getProductByUserId(id);
       return products;
     } catch (error) {
       throw Error((error as Error).message);

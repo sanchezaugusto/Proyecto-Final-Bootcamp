@@ -3,7 +3,7 @@ import categoryDao from "./dao";
 const { getCategoryById, getCategories, createCategory, addSubCategoriesToCategory, updateCategory, deleteCategory } =
   categoryDao;
 
-class CaterogySercice {
+class CategorySercice {
   async getCategories() {
     try {
       const categories = await getCategories()
@@ -65,6 +65,6 @@ class CaterogySercice {
   
 }
 
-const categoryService = new CaterogySercice();
+const categoryService = new CategorySercice();
 
 export default categoryService;

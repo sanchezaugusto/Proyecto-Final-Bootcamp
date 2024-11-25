@@ -2,7 +2,7 @@ type filterByPrice = "lower" | "higher";
 
 export interface ISearchParams {
   categoryId?: string;
-  subCategotyId?: string;
+  subCategory_id?: string;
   salersId?: string;
   filterByPrice?: filterByPrice;
   priceRange?: string;
