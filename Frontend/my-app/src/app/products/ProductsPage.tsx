@@ -84,7 +84,7 @@ export default function ProductsPage() {
 
         {/* Products */}
         <div className="w-3/4">
-          <InputSearch />
+          <InputSearch setProducts={setProducts}/>
           <div className="max-w-[1250px] mx-auto grid gap-6 sm:grid-cols-2 md:grid-cols-3">
           {/* {filteredProducts.map((product) => (
               <ProductCard key={product.id} product={product} addToCart={addOneToCart} /> */}

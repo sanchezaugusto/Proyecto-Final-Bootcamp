@@ -17,10 +17,12 @@ interface FilterContextProps {
 const FilterContext = createContext<FilterContextProps | undefined>(undefined);
 
 export const FilterProvider = ({ children }: { children: ReactNode }) => {
+  const [name, setName] = useState("")
   const [categories, setCategories] = useState([])
-  const [selectedCategory, setSelectedCategory] = useState<string>("all");
+  const [selectedCategory, setSelectedCategory] = useState<string|null>(null);
   const [selectedCategoryName, setSelectedCategoryName] = useState("");
-  const [priceRange, setPriceRange] = useState<[number, number]>([0, 1000]);
+  const [isSubCategory, setIsSubCategory] = useState(false)
+  const [priceRange, setPriceRange] = useState<[number, number]>([1, 2000000]);
 
   useEffect(() =>{
     const fechtCategories = async () =>{
@@ -31,6 +33,8 @@ export const FilterProvider = ({ children }: { children: ReactNode }) => {
   return (
     <FilterContext.Provider
       value={{
+        name,
+        setName,
         categories,
         selectedCategory,
         priceRange,
@@ -38,7 +42,9 @@ export const FilterProvider = ({ children }: { children: ReactNode }) => {
         setCategories,
         setPriceRange,
         selectedCategoryName,
-        setSelectedCategoryName
+        setSelectedCategoryName,
+        setIsSubCategory,
+        isSubCategory
       }}
     >
       {children}

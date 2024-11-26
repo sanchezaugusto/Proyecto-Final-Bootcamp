@@ -30,16 +30,16 @@ const FilterSidebar = () => {
         </div>
         <input
           type="range"
-          min="0"
-          max="1000"
+          min="1"
+          max="2000000"
           value={priceRange[0]}
           onChange={(e) => setPriceRange([+e.target.value, priceRange[1]])}
           className="w-full mb-2"
         />
         <input
           type="range"
-          min="0"
-          max="1000"
+          min="1"
+          max="2000000"
           value={priceRange[1]}
           onChange={(e) => setPriceRange([priceRange[0], +e.target.value])}
           className="w-full"

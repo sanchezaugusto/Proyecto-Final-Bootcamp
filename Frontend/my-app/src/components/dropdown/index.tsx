@@ -12,13 +12,22 @@ export default function Dropdown({categories} : Props) {
         selectedCategoryName,
         setSelectedCategoryName,
         setSelectedCategory,
+        setIsSubCategory,
+        isSubCategory
       } = useFilter();
 
-    const handleOnClick = (category) =>{
+    const handleOnClickCategory = (category) =>{
         setSelectedCategory(category._id)
         setSelectedCategoryName(category.name)
+        setIsSubCategory(false)
     }
-    console.log(categories)
+
+    const handleOnClickSubCategory = (category) =>{
+        setSelectedCategory(category._id)
+        setSelectedCategoryName(category.name)
+        setIsSubCategory(true)
+    }
+
     return (
         <Menu as="div" className="w-full relative inline-block text-left">
         <div>
@@ -35,7 +44,7 @@ export default function Dropdown({categories} : Props) {
             <div className='py-1'>
                 <MenuItem>
                     <button
-                    onClick={() => handleOnClick({_id: null, name: "Todos"})}
+                    onClick={() => handleOnClickCategory({_id: null, name: "Todos"})}
                     className="w-full text-left block px-4 py-2 text-sm text-gray-700 data-[focus]:bg-gray-100 data-[focus]:text-gray-900 data-[focus]:outline-none"
                     >
                     Todos
@@ -47,7 +56,7 @@ export default function Dropdown({categories} : Props) {
                     <div key={category._id} className="py-1">
                         <MenuItem>
                             <button
-                            onClick={() => handleOnClick(category)}
+                            onClick={() => handleOnClickCategory(category)}
                             className="w-full text-left block px-4 py-2 text-sm text-gray-700 data-[focus]:bg-gray-100 data-[focus]:text-gray-900 data-[focus]:outline-none"
                             >
                             {category.name}
@@ -57,10 +66,10 @@ export default function Dropdown({categories} : Props) {
                             return(
                                 <MenuItem key={subCategory._id}>
                                     <button
-                                    onClick={() => handleOnClick(subCategory)}
+                                    onClick={() => handleOnClickSubCategory(subCategory)}
                                     className="w-full text-left  block px-4 py-2 text-sm text-gray-700 data-[focus]:bg-gray-100 data-[focus]:text-gray-900 data-[focus]:outline-none"
                                     >
-                                    {subCategory._id}
+                                    {subCategory.name}
                                     </button>
                                 </MenuItem>
                             )
