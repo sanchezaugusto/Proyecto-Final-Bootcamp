@@ -81,10 +81,34 @@ export default function Page({ params }: { params: { id: string } }) {
   if (loading) return <Loader />;
   if (error) return <p>Error: {error}</p>;
   if (!product) return <p>Producto no encontrado</p>;
-
+  console.log(product)
   return (
     <>
       <div className="max-w-7xl min-h-[700px] mx-auto my-auto py-10 text-slate-900 flex flex-col md:flex-row">
+        <div className="flex flex-col">
+            <figure
+              className="border border-gray-300 w-full h-20 md:h-[300px] p-4 md:p-6 rounded-3xl overflow-hidden cursor-pointer"
+              onClick={() => openModal(product.image[1])}
+            >
+              <img
+                src={product.image[1]}
+                alt={`imagen del producto ${product.name}`}
+                className="w-full h-full object-contain transition-all hover:scale-110"
+              />
+            </figure>
+
+            <figure
+              className="border border-gray-300 w-full h-20 md:h-[300px] p-4 md:p-6 rounded-3xl overflow-hidden cursor-pointer"
+              onClick={() => openModal(product.image[2])}
+            >
+              <img
+                src={product.image[2]}
+                alt={`imagen del producto ${product.name}`}
+                className="w-full h-full object-contain transition-all hover:scale-110"
+              />
+            </figure>
+        </div>
+
         <div className="p-4 md:p-10 flex flex-col flex-1 gap-4 md:gap-10">
         <div className="flex flex-col">
             <figure
