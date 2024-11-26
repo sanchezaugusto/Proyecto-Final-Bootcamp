@@ -23,9 +23,9 @@ const ProductCard: React.FC<ProductCardProps> = ({ product, addToCart }) => {
   };
 
   return (
-    <div    className="max-w-sm rounded-2xl overflow-hidden shadow-lg hover:shadow-xl transition-shadow duration-300 ease-in-out cursor-pointer flex flex-col justify-between">
+    <div onClick={handleClick} className="max-w-sm rounded-2xl overflow-hidden shadow-lg hover:shadow-xl transition-shadow duration-300 ease-in-out cursor-pointer flex flex-col justify-between">
   
-      <div onClick={handleClick} className="overflow-hidden">
+      <div className="overflow-hidden">
         <img
           src={product.image[0]}
           alt={product.name}
@@ -44,9 +44,9 @@ const ProductCard: React.FC<ProductCardProps> = ({ product, addToCart }) => {
         </div>
 
       </div>
-        <div className="flex justify-start">
+        {/* <div className="flex justify-start">
           <AddToCartButton onClick={() => {addToCart}}/>
-        </div>
+        </div> */}
     </div>
   );
 };

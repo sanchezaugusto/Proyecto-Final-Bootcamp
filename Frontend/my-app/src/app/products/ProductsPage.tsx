@@ -86,6 +86,8 @@ export default function ProductsPage() {
         <div className="w-3/4">
           <InputSearch />
           <div className="max-w-[1250px] mx-auto grid gap-6 sm:grid-cols-2 md:grid-cols-3">
+          {/* {filteredProducts.map((product) => (
+              <ProductCard key={product.id} product={product} addToCart={addOneToCart} /> */}
             {products.map((product) => (
               <ProductCard key={product._id} product={product} addToCart={addOneToCart}/>
             ))}
