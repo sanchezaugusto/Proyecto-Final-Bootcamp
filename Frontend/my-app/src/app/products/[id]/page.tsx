@@ -10,6 +10,7 @@ async function fetchProductById(id: string) {
   try {
     const response = await fetch(`${process.env.NEXT_PUBLIC_API_HOST}/products/${id}`);
     const data = await response.json();
+
     return data;
   } catch (error) {
     console.error("Error fetching product:", error);
@@ -87,18 +88,18 @@ export default function Page({ params }: { params: { id: string } }) {
         <div className="p-4 md:p-10 flex flex-col flex-1 gap-4 md:gap-10">
           <figure
             className="border border-gray-300 w-full h-60 md:h-[500px] p-4 md:p-6 rounded-3xl overflow-hidden cursor-pointer"
-            onClick={() => openModal(product.image)}
+            onClick={() => openModal(product.image[0])}
           >
             <img
-              src={product.image}
-              alt={`imagen del producto ${product.title}`}
+              src={product.image[0]}
+              alt={`imagen del producto ${product.name}`}
               className="w-full h-full object-contain transition-all hover:scale-110"
             />
           </figure>
         </div>
 
         <div className="p-4 md:p-10 flex-1 flex flex-col justify-center">
-          <h1 className="font-bold text-2xl md:text-3xl mb-4 md:mb-10">{product.title}</h1>
+          <h1 className="font-bold text-2xl md:text-3xl mb-4 md:mb-10">{product.name}</h1>
           <p className="text-gray-500 mb-4 md:mb-10">{product.description}</p>
           <p className="font-bold text-xl md:text-2xl mb-4 md:mb-10">Precio: ${product.price}</p>
 

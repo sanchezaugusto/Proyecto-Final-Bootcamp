@@ -29,7 +29,7 @@ class ProductService {
       filterByPrice,
       priceRange,
       page = "1",
-      limit = "10",
+      limit = "80",
       keyword
     } = searchParams;
     let priceStart: number | undefined;
