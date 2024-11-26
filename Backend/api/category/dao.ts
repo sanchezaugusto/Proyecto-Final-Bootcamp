@@ -4,7 +4,7 @@ import Category from "./model";
 class CategoryDao {
   async getCategories() {
     try {
-      return await Category.find();
+      return await Category.find().populate("subCategories", "name");
     } catch (error) {
       throw Error((error as Error).message);
     }

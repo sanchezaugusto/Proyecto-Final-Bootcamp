@@ -24,8 +24,9 @@ class ProductService {
   }
   async getProducts(searchParams: ISearchParams) {
     const {
-      categoryId,
-      salersId,
+      category_id,
+      subCategory_id,
+      salers_id,
       filterByPrice,
       priceRange,
       page = "1",
@@ -45,8 +46,9 @@ class ProductService {
     }
     try {
       const products = await getAllProducts(
-        categoryId,
-        salersId,
+        category_id,
+        subCategory_id,
+        salers_id,
         priceStart,
         priceEnd,
         sort,

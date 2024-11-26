@@ -4,8 +4,9 @@ import mongoose from "mongoose";
 
 class ProductDao {
   async getAllProducts(
-    categoryId: string | undefined,
-    salersId: string | undefined,
+    category_id: string | undefined,
+    subCategory_id: string | undefined,
+    salers_id: string | undefined,
     priceStart: number | undefined,
     priceEnd: number | undefined,
     sort: -1 | 1 | undefined,
@@ -17,8 +18,9 @@ class ProductDao {
       const skip = (Number(page) - 1) * Number(limit);
       const products = await Product.find({
         stock: { $gt: 0 },
-        ...(categoryId ? { categoryId } : {}),
-        ...(salersId ? { salersId } : {}),
+        ...(category_id ? { category_id } : {}),
+        ...(subCategory_id ? { subCategory_id } : {}),
+        ...(salers_id ? { salers_id } : {}),
         ...(priceStart && priceEnd
           ? { price: { $gte: priceStart, $lte: priceEnd } }
           : {}),
