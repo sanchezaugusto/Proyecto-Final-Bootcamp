@@ -24,7 +24,7 @@ const AddProductForm: React.FC = () => {
     }
 
     try {
-      const response = await fetch(`${process.env.NEXT_PUBLIC_API_HOST}/api/products/addProduct`, {
+      const response = await fetch(`${process.env.NEXT_PUBLIC_API_HOST}/products/addProduct`, {
         method: 'POST',
         body: formData,
       });
