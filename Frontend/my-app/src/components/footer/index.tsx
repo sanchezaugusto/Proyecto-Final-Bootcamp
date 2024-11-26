@@ -1,7 +1,7 @@
 // components/Footer.jsx
 export default function Footer() {
   return (
-    <footer className="bg-black text-white py-10 mt-auto">
+    <footer className="bg-[#2a2a2a] text-white py-10">
       <div className="container mx-auto flex flex-col md:flex-row justify-between">
         {/* Sección Izquierda */}
         <div className="mb-8 md:mb-0">
@@ -28,7 +28,7 @@ export default function Footer() {
           </nav>
         </div>
 
-        
+
 
         {/* Redes Sociales */}
         <div className="mt-8 md:mt-0">
@@ -36,24 +36,24 @@ export default function Footer() {
           <div className="flex space-x-4">
             <a
               href="#"
-              className="text-gray-400 hover:text-white transition-colors"
+              className="text-gray-200 hover:opacity-50 hover:text-white transition-colors"
               aria-label="Facebook"
             >
-              <i className="fab fa-facebook-f"></i>
+              <i className="fab fa-facebook-f"><img src="/social/facebook.svg" alt="" /></i>
             </a>
             <a
               href="#"
-              className="text-gray-400 hover:text-white transition-colors"
+              className="text-gray-200 hover:opacity-50 hover:text-white transition-colors"
               aria-label="Twitter"
             >
-              <i className="fab fa-twitter"></i>
+              <i className="fab fa-twitter"><img src="/social/ig.svg" alt="" /></i>
             </a>
             <a
               href="#"
-              className="text-gray-400 hover:text-white transition-colors"
+              className="text-gray-200 hover:opacity-50 hover:text-white transition-colors"
               aria-label="Instagram"
             >
-              <i className="fab fa-instagram"></i>
+              <i className="fab fa-instagram"><img src="/social/x.svg" alt="" /></i>
             </a>
           </div>
         </div>
@@ -63,36 +63,36 @@ export default function Footer() {
           <h2 className="text-xl font-semibold mb-4">Contáctanos</h2>
           <form className="space-y-4">
             <div>
-              <label htmlFor="name" className="block text-gray-400">
+              <label htmlFor="name" className="block text-gray-200">
                 Nombre
               </label>
               <input
                 type="text"
                 id="name"
                 placeholder="Tu nombre"
-                className="w-full bg-gray-800 text-white rounded-md p-2 focus:outline-none focus:ring-2 focus:ring-gray-200"
+                className="w-full bg-gray-100 text-white rounded-md p-2 focus:outline-none focus:ring-2 focus:ring-gray-200"
               />
             </div>
             <div>
-              <label htmlFor="email" className="block text-gray-400">
+              <label htmlFor="email" className="block text-gray-200">
                 Correo o Empresa
               </label>
               <input
                 type="email"
                 id="email"
                 placeholder="Tu correo o empresa"
-                className="w-full bg-gray-800 text-white rounded-md p-2 focus:outline-none focus:ring-2 focus:ring-gray-200"
+                className="w-full bg-gray-100 text-white rounded-md p-2 focus:outline-none focus:ring-2 focus:ring-gray-200"
               />
             </div>
             <div>
-              <label htmlFor="message" className="block text-gray-400">
+              <label htmlFor="message" className="block text-gray-200">
                 Mensaje
               </label>
               <textarea
                 id="message"
                 placeholder="Tu mensaje"
                 rows="4"
-                className="w-full bg-gray-800 text-white rounded-md p-2 focus:outline-none focus:ring-2 focus:ring-gray-200"
+                className="w-full bg-gray-100 text-white rounded-md p-2 focus:outline-none focus:ring-2 focus:ring-gray-200"
               ></textarea>
             </div>
             <button
