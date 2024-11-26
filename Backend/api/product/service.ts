@@ -10,6 +10,7 @@ const {
   createProduct,
   editProduct,
   deleteProduct,
+  getProductByUserId,
 } = productDao;
 
 class ProductService {
@@ -23,12 +24,13 @@ class ProductService {
   }
   async getProducts(searchParams: ISearchParams) {
     const {
-      categoryId,
-      salersId,
+      category_id,
+      subCategory_id,
+      salers_id,
       filterByPrice,
       priceRange,
       page = "1",
-      limit = "10",
+      limit = "80",
       keyword
     } = searchParams;
     let priceStart: number | undefined;
@@ -44,8 +46,9 @@ class ProductService {
     }
     try {
       const products = await getAllProducts(
-        categoryId,
-        salersId,
+        category_id,
+        subCategory_id,
+        salers_id,
         priceStart,
         priceEnd,
         sort,
@@ -54,6 +57,16 @@ class ProductService {
         keyword
       );
 
+      return products;
+    } catch (error) {
+      throw Error((error as Error).message);
+    }
+  }
+
+  async getProductByUserId(id: string) {
+    console.log('ID:', id); // Debug 
+    try {
+      const products = await getProductByUserId(id);
       return products;
     } catch (error) {
       throw Error((error as Error).message);

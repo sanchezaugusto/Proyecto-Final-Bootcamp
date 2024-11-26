@@ -1,6 +1,30 @@
+import { useFilter } from '@/context/FilterContext'
 import React from 'react'
+import { getProducts } from '@/services/productService'
 
-const InputSearch = () => {
+interface Props{
+    setProducts: (products: Product[]) => void
+}
+const InputSearch = ({setProducts} : Props) => {
+    const {selectedCategory, priceRange, isSubCategory, name, setName} = useFilter()
+    let category = null
+    if(selectedCategory){
+        category = isSubCategory ? {subCategory_id: selectedCategory} : {category_id: selectedCategory}
+    }
+    
+    const handleOnClick = async () =>{
+        console.log(selectedCategory, priceRange, isSubCategory)
+        const filteredProducts = await getProducts({
+            priceRange: priceRange.join(","),
+            keyword: name,
+            ...category
+        })
+        setProducts(filteredProducts)
+    }
+
+    const handleOnChange = (e) =>{
+        setName(e.target.value)
+    }
     return (
             <div className="flex items-center justify-center">
                 <div className="rounded-lg w-full mb-6 shadow-md">
@@ -13,6 +37,7 @@ const InputSearch = () => {
                         </div>
 
                         <input
+                            onChange={handleOnChange}
                             type="text"
                             className="w-full h-[50px] pl-2 bg-white text-base font-semibold outline-0"
                             placeholder=""
@@ -21,6 +46,7 @@ const InputSearch = () => {
                         <input
                             type="button"
                             value="Search"
+                            onClick={handleOnClick}
                             className="bg-gray-900 p-2 rounded-tr-lg rounded-br-lg text-white font-semibold hover:bg-gray-600 transition-colors"
                         />
                     </div>

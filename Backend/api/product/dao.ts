@@ -1,10 +1,12 @@
 import Product from "./model";
 import { IProduct } from "../../types";
+import mongoose from "mongoose";
 
 class ProductDao {
   async getAllProducts(
-    categoryId: string | undefined,
-    salersId: string | undefined,
+    category_id: string | undefined,
+    subCategory_id: string | undefined,
+    salers_id: string | undefined,
     priceStart: number | undefined,
     priceEnd: number | undefined,
     sort: -1 | 1 | undefined,
@@ -16,8 +18,9 @@ class ProductDao {
       const skip = (Number(page) - 1) * Number(limit);
       const products = await Product.find({
         stock: { $gt: 0 },
-        ...(categoryId ? { categoryId } : {}),
-        ...(salersId ? { salersId } : {}),
+        ...(category_id ? { category_id } : {}),
+        ...(subCategory_id ? { subCategory_id } : {}),
+        ...(salers_id ? { salers_id } : {}),
         ...(priceStart && priceEnd
           ? { price: { $gte: priceStart, $lte: priceEnd } }
           : {}),
@@ -39,14 +42,25 @@ class ProductDao {
       throw Error((error as Error).message);
     }
   }
+
+  async getProductByUserId(salersId: string) {
+
+    const { ObjectId } = mongoose.Types;
+    try {
+      const objectIdSalersId = new ObjectId(salersId);  
+      const products = await Product.find({ salers_id: objectIdSalersId });
+      return products;
+    } catch (error) {
+      throw Error((error as Error).message);
+    }
+  }
+
+
   async createProduct(product: IProduct) {
-    console.log("Product input to save DAO:", product); // Debug
     try {
       const newProduct = await Product.create(product);
-      console.log("Product created DAO:", newProduct);
       return newProduct;
     } catch (error) {
-      console.error('Error in DAO:', error);
       throw Error((error as Error).message);
     }
   }

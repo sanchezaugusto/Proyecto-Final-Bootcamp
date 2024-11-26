@@ -1,5 +1,5 @@
 "use client";
-import Product from "@/types/product";
+import { Product } from "@/types";
 import { createContext, useContext, useState, useEffect, ReactNode } from "react";
 
 // FIJARSE SI SIRVEN ESTOS TYPES O VER DE LA CARPETA TYPES
@@ -38,10 +38,10 @@ export function CartProvider({ children }: { children: ReactNode }) {
 
     const addToCart = (product: Product) => {
         setCart((prevCart) => {
-            const existingItem = prevCart.find(item => item.id === product.id);
+            const existingItem = prevCart.find(item => item._id === product._id);
             if (existingItem) {
                 return prevCart.map(item =>
-                    item.id === product.id
+                    item._id === product._id
                         ? { ...item, quantity: item.quantity + product.quantity }
                         : item
                 );
@@ -53,10 +53,10 @@ export function CartProvider({ children }: { children: ReactNode }) {
 
     const addOneToCart = (product: Product) => {
         setCart((prevCart) => {
-            const existingItem = prevCart.find(item => item.id === product.id);
+            const existingItem = prevCart.find(item => item._id === product._id);
             if (existingItem) {
                 return prevCart.map(item =>
-                    item.id === product.id
+                    item._id === product._id
                         ? { ...item, quantity: item.quantity + 1 }
                         : item
                 );
@@ -70,7 +70,7 @@ export function CartProvider({ children }: { children: ReactNode }) {
         setCart((prevCart) => {
             return prevCart
                 .map(item =>
-                    item.id === product.id && item.quantity > 1
+                    item._id === product._id && item.quantity > 1
                         ? { ...item, quantity: item.quantity - 1 }
                         : item
                 )
@@ -79,7 +79,7 @@ export function CartProvider({ children }: { children: ReactNode }) {
     };
 
     const removeFromCart = (id: string) => {
-        setCart((prevCart) => prevCart.filter(item => item.id !== id));
+        setCart((prevCart) => prevCart.filter(item => item._id !== id));
     };
 
     const clearCart = () => {

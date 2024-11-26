@@ -6,19 +6,38 @@ export interface IUser {
   }
 
 export interface CartItem {
-  id: number;
-  title: string;
+  _id: string;
+  name: string;
   price: number;
   quantity: number;
   image: string
 }
+export interface CartContextType {
+    cart: CartItem[];
+    totalItems: number;
+    addToCart: (product: CartItem) => void;
+    substractOneFromCart: (product: CartItem) => void;
+    removeFromCart: (id: number) => void;
+    clearCart: () => void;
+}
  
-export type Product = {
-  id: number;
-  title: string;
+export interface Product  {
+  _id: string;
+  name: string;
   price: number;
   category: string;
   description: string;
-  image: string;
+  image: string[];
   quantity: number;
 };
+
+export interface ICategory{
+  _id: string,
+  name: string
+  subCategories: ISubCategory[]
+}
+
+export interface ISubCategory{
+  _id: string,
+  name: string
+}
