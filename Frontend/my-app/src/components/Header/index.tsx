@@ -1,7 +1,9 @@
 import Link from 'next/link';
 import React from 'react';
 import './Header.css'
+import NavDropdown from '../NavDropdown';
 import { auth, signOut } from '@/auth';
+import CartButton from '../CartButton';
 
 export default async function Header() {
   const session = await auth()
@@ -46,18 +48,9 @@ export default async function Header() {
             </Link>
           </div>
         ): (
-          <div className="flex justify-end gap-6 col-span-1">
-            <Link href={"/cart"} className='w-[30px] h-[30px]'>
-              <img className='' src="/cart.png" alt="Cart" />
-            </Link>
-            <form
-              action={async () => {
-                "use server"
-                await signOut()
-              }}
-            >
-              <button className="px-4 py-2 text-sm font-medium text-white bg-gray-900 rounded-md shadow hover:bg-gray-600 transition-all" type="submit">Sign Out</button>
-            </form>
+          <div className="flex justify-end items-center gap-6 col-span-1">
+            <CartButton/>
+            <NavDropdown/>
           </div>
         )}
         
