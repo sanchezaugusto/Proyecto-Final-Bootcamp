@@ -7,6 +7,7 @@ const { createOrder, getOrdersByUserId, getOrderById, getOrdersBySellerId } = or
 class OrderController {
   async createOrder(req: Request, res: Response) {
     try {
+      console.log("Datos recibidos en el backend:", req.body);
       const order: IOrder = req.body;
       const newOrder = await createOrder(order);
       res.status(200).json(newOrder);

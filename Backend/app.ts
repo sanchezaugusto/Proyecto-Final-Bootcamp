@@ -11,7 +11,10 @@ const HOST = process.env.HOST ?? "localhost";
 
 const app = express();
 
-app.use(cors());
+app.use(cors({
+  origin: "http://localhost:3000", // Ajusta esto al origen de tu frontend
+  methods: ["GET", "POST"],
+}));
 
 app.use(express.json());
 

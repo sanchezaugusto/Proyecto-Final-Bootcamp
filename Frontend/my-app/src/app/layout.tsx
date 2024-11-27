@@ -5,6 +5,7 @@ import {Montserrat} from "next/font/google"
 import Header from '../components/Header'
 import Footer from '../components/Footer'
 import { CartProvider } from '@/context/CartContext';
+import { SessionProvider } from "next-auth/react"; // Importar el SessionProvider
 
 const montserrat = Montserrat({
     variable: "--font-montserrat",
@@ -20,11 +21,13 @@ export default function Layout({children} : {children: React.ReactNode}) {
     return (
         <html lang='en' className={`${montserrat.variable}`}>
             <body className='flex flex-col min-h-screen bg-white-200 font-montserrat'>
+            <SessionProvider>
                 <CartProvider>
-                    <Header/>
+                    <Header />
                     {children}
-                    <Footer/>
+                    <Footer />
                 </CartProvider>
+            </SessionProvider>
             </body>
         </html>
     )
