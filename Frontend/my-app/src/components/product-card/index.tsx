@@ -7,34 +7,35 @@ interface ProductCardProps {
   addToCart: (product: Product) => void;
 }
 
-const truncateText = (text: string, maxLength: number) => {
-  if (text.length <= maxLength) {
-    return text;
-  }
-  return text.substring(0, maxLength) + '...';
-};
 
 const ProductCard: React.FC<ProductCardProps> = ({ product, addToCart }) => {
   const router = useRouter();
-
+  
   const handleClick = () => {
-    router.push(`/products/${product.id}`);
+    router.push(`/products/${product._id}`);
+  };
+  
+  const truncateText = (text: string, maxLength: number) => {
+    if (text.length <= maxLength) {
+      return text;
+    }
+    return text.substring(0, maxLength) + '...';
   };
 
   return (
-    <div className="max-w-sm rounded-2xl overflow-hidden shadow-lg hover:shadow-xl transition-shadow duration-300 ease-in-out cursor-pointer flex flex-col justify-between">
+    <div onClick={handleClick} className="max-w-sm rounded-2xl overflow-hidden shadow-lg hover:shadow-xl transition-shadow duration-300 ease-in-out cursor-pointer flex flex-col justify-between">
   
-      <div onClick={handleClick} className="overflow-hidden">
+      <div className="overflow-hidden">
         <img
-          src={product.image}
-          alt={product.title}
+          src={product.image[0]}
+          alt={product.name}
           className="w-full h-64 p-4 object-contain bg-white transition-all hover:scale-110"
         />
       </div>
 
       <div className="flex flex-col p-6 gap-6">
         <div>
-          <p className="font-bold text-xl mb-2">{product.title}</p>
+          <p className="font-bold text-xl mb-2">{product.name}</p>
           <p className="text-gray-700 text-base">{truncateText(product.description, 60)}</p>
         </div>
 
@@ -42,10 +43,10 @@ const ProductCard: React.FC<ProductCardProps> = ({ product, addToCart }) => {
           <span className="text-gray-900 font-bold text-lg">Price ${product.price}</span>
         </div>
 
-        <div>
-          <AddToCartButton onClick={() => {addToCart(product)}}/>
-        </div>
       </div>
+        {/* <div className="flex justify-start">
+          <AddToCartButton onClick={() => {addToCart}}/>
+        </div> */}
     </div>
   );
 };

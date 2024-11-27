@@ -1,8 +1,7 @@
-// app/products/ProductsPage.tsx
-"use client";
+'use client';
 import { useEffect, useState } from "react";
 import { useSearchParams } from "next/navigation";
-import { Product } from "../../types/product";
+import { Product } from "@/types"; //cambiar a @/types
 import ProductCard from "../../components/product-card";
 import Loader from "@/components/loaders/Loader";
 import InputSearch from "@/components/buttons/input/InputSearch";
@@ -25,7 +24,7 @@ export default function ProductsPage() {
   useEffect(() => {
     const fetchProducts = async () => {
       try {
-        const baseUrl = `${process.env.NEXT_PUBLIC_API_HOST}`;
+        const baseUrl = `${process.env.NEXT_PUBLIC_API_HOST}/products`;
         const url = searchQuery ? `${baseUrl}?search=${encodeURIComponent(searchQuery)}` : baseUrl;
 
         const response = await fetch(url);
@@ -33,8 +32,8 @@ export default function ProductsPage() {
 
         const data = await response.json();
         const formattedData = data.map((item: any) => ({
-          id: item.id,
-          title: item.title,
+          _id: item._id,
+          name: item.name,
           price: item.price,
           category: item.category,
           description: item.description,
@@ -45,9 +44,9 @@ export default function ProductsPage() {
         setProducts(formattedData);
 
         // Set categories dynamically
-        const uniqueCategories = Array.from(new Set(formattedData.map((p: any) => p.category)));
-        setCategories(uniqueCategories);
-        setFilteredProducts(formattedData);
+        // const uniqueCategories = Array.from(new Set(formattedData.map((p: any) => p.category)));
+        // setCategories(uniqueCategories);
+        // setFilteredProducts(formattedData);
       } catch (error) {
         console.error("Error fetching products:", error);
         setError("Error fetching products");
@@ -57,25 +56,25 @@ export default function ProductsPage() {
     };
 
     fetchProducts();
-  }, [searchQuery, setCategories]);
+  },[]);  //  <--- anterior mente dentro del useEffect [searchQuery, setCategories]
 
-  useEffect(() => {
-    const filtered = products.filter((product) => {
-      const inCategory = selectedCategory === "all" || product.category === selectedCategory;
-      const inPriceRange = product.price >= priceRange[0] && product.price <= priceRange[1];
-      return inCategory && inPriceRange;
-    });
+  // useEffect(() => {
+  //   const filtered = products.filter((product) => {
+  //     const inCategory = selectedCategory === "all" || product.category === selectedCategory;
+  //     const inPriceRange = product.price >= priceRange[0] && product.price <= priceRange[1];
+  //     return inCategory && inPriceRange;
+  //   });
 
-    setFilteredProducts(filtered);
-  }, [selectedCategory, priceRange, products]);
+  //   setFilteredProducts(filtered);
+  // }, [selectedCategory, priceRange, products]);
 
-  if (loading) {
-    return <Loader />;
-  }
+  // if (loading) {
+  //   return <Loader />;
+  // }
 
-  if (error) {
-    return <div className="flex items-center justify-center min-h-screen text-red-500">{error}</div>;
-  }
+  // if (error) {
+  //   return <div className="flex items-center justify-center min-h-screen text-red-500">{error}</div>;
+  // }
 
   return (
     <div className="bg-gray-100 min-h-screen p-8">
@@ -85,10 +84,12 @@ export default function ProductsPage() {
 
         {/* Products */}
         <div className="w-3/4">
-          <InputSearch />
+          <InputSearch setProducts={setProducts}/>
           <div className="max-w-[1250px] mx-auto grid gap-6 sm:grid-cols-2 md:grid-cols-3">
-            {filteredProducts.map((product) => (
-              <ProductCard key={product.id} product={product} addToCart={addOneToCart} />
+          {/* {filteredProducts.map((product) => (
+              <ProductCard key={product.id} product={product} addToCart={addOneToCart} /> */}
+            {products.map((product) => (
+              <ProductCard key={product._id} product={product} addToCart={addOneToCart}/>
             ))}
           </div>
         </div>

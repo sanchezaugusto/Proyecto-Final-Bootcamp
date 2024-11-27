@@ -9,7 +9,7 @@ export default function Page(){
 
     const handlePayment = async () => {
         const items = cart.map(item => ({
-          title: item.title,
+          title: item.name,
           quantity: item.quantity,
           unit_price: item.price, // mapeo de price a unit_price
         }));
@@ -42,7 +42,7 @@ export default function Page(){
                         {cart.map((product) =>{
                             return (
                             <CartProduct 
-                                key={product.id} 
+                                key={product._id} 
                                 product={product}
                                 addProduct={addOneToCart}
                                 substractOneFromCart={substractOneFromCart}
@@ -58,8 +58,8 @@ export default function Page(){
                     <div className="mt-3 pb-2 border-b">
                         {cart.map(product =>{
                             return(
-                                <div key={product.id} className="flex justify-between">
-                                    <p className="w-[280px] h-[24px] overflow-clip">{product.title}</p>
+                                <div key={product._id} className="flex justify-between">
+                                    <p className="w-[280px] h-[24px] overflow-clip">{product.name}</p>
                                     <span>${(product.quantity * product.price).toFixed(2)}</span>
                                 </div>
                             )

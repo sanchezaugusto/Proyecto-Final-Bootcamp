@@ -10,6 +10,7 @@ async function fetchProductById(id: string) {
   try {
     const response = await fetch(`${process.env.NEXT_PUBLIC_API_HOST}/products/${id}`);
     const data = await response.json();
+
     return data;
   } catch (error) {
     console.error("Error fetching product:", error);
@@ -56,6 +57,7 @@ export default function Page({ params }: { params: { id: string } }) {
         const { rating, comments } = await mockFetchRatingAndComments(id);
         setRating(rating);
         setComments(comments);
+        setSelectedImage(productData.image[0])
       } else {
         setError("Producto no encontrado.");
       }
@@ -67,8 +69,11 @@ export default function Page({ params }: { params: { id: string } }) {
 
   const handleDecrease = () => setCantidad(prev => (prev > 1 ? prev - 1 : 1));
   const handleIncrease = () => setCantidad(prev => prev + 1);
-  const openModal = (image: string) => { setSelectedImage(image); setIsModalOpen(true); };
-  const closeModal = () => { setIsModalOpen(false); setSelectedImage(null); };
+  const openModal = () => { setIsModalOpen(true); };
+  const closeModal = () => { setIsModalOpen(false); };
+  const handleSelectImage = (image) =>{
+    setSelectedImage(image)
+  }
 
   const handleCommentSubmit = () => {
     if (newComment.trim()) {
@@ -80,25 +85,45 @@ export default function Page({ params }: { params: { id: string } }) {
   if (loading) return <Loader />;
   if (error) return <p>Error: {error}</p>;
   if (!product) return <p>Producto no encontrado</p>;
-
+  console.log(product)
   return (
     <>
       <div className="max-w-7xl min-h-[700px] mx-auto my-auto py-10 text-slate-900 flex flex-col md:flex-row">
+        <div className="grid grid-cols-2 h-fit place-content-center">
+          {product.image.map((img, index) => {
+            let style = index == 2 ? "col-span-2" : ""
+            return(
+              <figure
+              key={img}
+              className={style + " border border-gray-300 w-full h-20 md:h-[300px] p-4 md:p-6 rounded-3xl overflow-hidden cursor-pointer"}
+              onClick={() => handleSelectImage(img)}
+              >
+              <img
+                src={img}
+                alt={`imagen del producto ${product.name}`}
+                className="w-full h-full object-contain transition-all hover:scale-110"
+              />
+            </figure>
+            )
+          })}
+          
+        </div>
+
         <div className="p-4 md:p-10 flex flex-col flex-1 gap-4 md:gap-10">
           <figure
-            className="border border-gray-300 w-full h-60 md:h-[500px] p-4 md:p-6 rounded-3xl overflow-hidden cursor-pointer"
-            onClick={() => openModal(product.image)}
+            className="border border-gray-300 w-full h-40 md:h-[500px] p-4 md:p-6 rounded-3xl overflow-hidden cursor-pointer"
+            onClick={() => openModal(product.image[0])}
           >
             <img
-              src={product.image}
-              alt={`imagen del producto ${product.title}`}
+              src={selectedImage}
+              alt={`imagen del producto ${product.name}`}
               className="w-full h-full object-contain transition-all hover:scale-110"
             />
           </figure>
         </div>
 
         <div className="p-4 md:p-10 flex-1 flex flex-col justify-center">
-          <h1 className="font-bold text-2xl md:text-3xl mb-4 md:mb-10">{product.title}</h1>
+          <h1 className="font-bold text-2xl md:text-3xl mb-4 md:mb-10">{product.name}</h1>
           <p className="text-gray-500 mb-4 md:mb-10">{product.description}</p>
           <p className="font-bold text-xl md:text-2xl mb-4 md:mb-10">Precio: ${product.price}</p>
 
