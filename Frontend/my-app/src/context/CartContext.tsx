@@ -1,4 +1,5 @@
-"use client";
+'use client'
+
 import { Product } from "@/types";
 import { createContext, useContext, useState, useEffect, ReactNode } from "react";
 
