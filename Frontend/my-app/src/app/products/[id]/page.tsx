@@ -57,6 +57,7 @@ export default function Page({ params }: { params: { id: string } }) {
         const { rating, comments } = await mockFetchRatingAndComments(id);
         setRating(rating);
         setComments(comments);
+        setSelectedImage(productData.image[0])
       } else {
         setError("Producto no encontrado.");
       }
@@ -68,8 +69,11 @@ export default function Page({ params }: { params: { id: string } }) {
 
   const handleDecrease = () => setCantidad(prev => (prev > 1 ? prev - 1 : 1));
   const handleIncrease = () => setCantidad(prev => prev + 1);
-  const openModal = (image: string) => { setSelectedImage(image); setIsModalOpen(true); };
-  const closeModal = () => { setIsModalOpen(false); setSelectedImage(null); };
+  const openModal = () => { setIsModalOpen(true); };
+  const closeModal = () => { setIsModalOpen(false); };
+  const handleSelectImage = (image) =>{
+    setSelectedImage(image)
+  }
 
   const handleCommentSubmit = () => {
     if (newComment.trim()) {
@@ -85,60 +89,33 @@ export default function Page({ params }: { params: { id: string } }) {
   return (
     <>
       <div className="max-w-7xl min-h-[700px] mx-auto my-auto py-10 text-slate-900 flex flex-col md:flex-row">
-        <div className="flex flex-col">
-            <figure
-              className="border border-gray-300 w-full h-20 md:h-[300px] p-4 md:p-6 rounded-3xl overflow-hidden cursor-pointer"
-              onClick={() => openModal(product.image[1])}
-            >
+        <div className="grid grid-cols-2 h-fit place-content-center">
+          {product.image.map((img, index) => {
+            let style = index == 2 ? "col-span-2" : ""
+            return(
+              <figure
+              key={img}
+              className={style + " border border-gray-300 w-full h-20 md:h-[300px] p-4 md:p-6 rounded-3xl overflow-hidden cursor-pointer"}
+              onClick={() => handleSelectImage(img)}
+              >
               <img
-                src={product.image[1]}
+                src={img}
                 alt={`imagen del producto ${product.name}`}
                 className="w-full h-full object-contain transition-all hover:scale-110"
               />
             </figure>
-
-            <figure
-              className="border border-gray-300 w-full h-20 md:h-[300px] p-4 md:p-6 rounded-3xl overflow-hidden cursor-pointer"
-              onClick={() => openModal(product.image[2])}
-            >
-              <img
-                src={product.image[2]}
-                alt={`imagen del producto ${product.name}`}
-                className="w-full h-full object-contain transition-all hover:scale-110"
-              />
-            </figure>
+            )
+          })}
+          
         </div>
 
         <div className="p-4 md:p-10 flex flex-col flex-1 gap-4 md:gap-10">
-        <div className="flex flex-col">
-            <figure
-              className="border border-gray-300 w-full h-20 md:h-[300px] p-4 md:p-6 rounded-3xl overflow-hidden cursor-pointer"
-              onClick={() => openModal(product.image[1])}
-            >
-              <img
-                src={product.image[1]}
-                alt={`imagen del producto ${product.name}`}
-                className="w-full h-full object-contain transition-all hover:scale-110"
-              />
-            </figure>
-            <figure
-              className="border border-gray-300 w-full h-20 md:h-[300px] p-4 md:p-6 rounded-3xl overflow-hidden cursor-pointer"
-              onClick={() => openModal(product.image[2])}
-            >
-              <img
-                src={product.image[2]}
-                alt={`imagen del producto ${product.name}`}
-                className="w-full h-full object-contain transition-all hover:scale-110"
-              />
-            </figure>
-        </div>
-          
           <figure
-            className="border border-gray-300 w-full h-60 md:h-[500px] p-4 md:p-6 rounded-3xl overflow-hidden cursor-pointer"
+            className="border border-gray-300 w-full h-40 md:h-[500px] p-4 md:p-6 rounded-3xl overflow-hidden cursor-pointer"
             onClick={() => openModal(product.image[0])}
           >
             <img
-              src={product.image[0]}
+              src={selectedImage}
               alt={`imagen del producto ${product.name}`}
               className="w-full h-full object-contain transition-all hover:scale-110"
             />
