@@ -45,23 +45,23 @@ class UserService {
   }
   async createUser(userData: IUser, filePath: string) {
     try {
-      // Subir la imagen a Cloudinary
+
       const uploadResult = await cloudinary.uploader.upload(filePath, {
         folder: 'users',
       });
 
-      // Eliminar el archivo temporal después de subirlo
+
       fs.unlinkSync(filePath);
 
-      // Preparar los datos del usuario
+ 
       const user = {
         ...userData,
-        image: uploadResult.secure_url, // Agregar la URL de la imagen
+        image: uploadResult.secure_url, 
       };
 
       console.log('User input to save service:', user);
 
-      // Guardar en la base de datos
+
       return await createUser(user);
     } catch (error) {
       console.error('Error in service:', error);
@@ -94,15 +94,23 @@ class UserService {
       throw new Error((error as Error).message);
     }
   }
-  async editUser(id: string, user: IUser) {
-    const { firts_name, last_name, user_name, email, image } = user;
+  async editUser(id: string, user: IUser, filePath: string) {
+    const uploadResult = await cloudinary.uploader.upload(filePath, {
+      folder: 'users',
+    });
+    fs.unlinkSync(filePath);
+    const image = uploadResult.secure_url; 
+    const { first_name, last_name, username, email } = user; 
+    
     const dbPayload = {
-      ...(firts_name ? { firts_name } : {}),
+      ...(first_name ? { first_name } : {}),
       ...(last_name ? { last_name } : {}),
-      ...(user_name ? { user_name } : {}),
+      ...(username ? { username } : {}),
       ...(email ? { email } : {}),
-      ...(image ? { image } : {}),
+      ...(image ? { image } : {}), 
     };
+    console.log('id input:', id);
+    console.log('DB payload:', dbPayload);
     try {
       const editedUser = await editUser(id, dbPayload);
       return editedUser;

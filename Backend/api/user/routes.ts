@@ -12,7 +12,7 @@ userRouter.get("/:id", getUser);
 userRouter.post("/register", upload.single('image'), createUser);
 userRouter.post("/login", loginUser);
 userRouter.delete("/deleteUser/:id", deleteUser);
-userRouter.put("/editUser/:id", editUser);
+userRouter.put("/editUser/:id",  upload.single('image'), editUser);
 userRouter.put("/changeRole/:id", adminRoutes, changeRole);
 
 export default userRouter;

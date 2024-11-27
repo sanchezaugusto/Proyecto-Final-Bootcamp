@@ -43,14 +43,13 @@ class UserController {
   async createUser(req: Request, res: Response) {
     try {
       const userBody = req.body;
-      const file = req.file; // El archivo cargado
+      const file = req.file; 
   
       if (!file) {
         res.status(400).json({ message: 'No file uploaded' });
         return;
       }
-  
-      // Delegar al servicio
+
       const user = await createUser(userBody, file.path);
       res.status(201).json(user);
     } catch (error) {
@@ -78,8 +77,15 @@ class UserController {
   }
   async editUser(req: Request, res: Response) {
     const userId = req.params.id;
+    const filePath = req.file?.path; 
+  
+    if (!filePath) {
+      return res.status(400).json({ error: "File path is required" });
+    }
+  
     try {
-      const user = await editUser(userId, req.body);
+      const user = await editUser(userId, req.body, filePath);
+      console.log(user);
       return res.status(200).json(user);
     } catch (error) {
       return res.status(400).json({ error: (error as Error).message });
