@@ -11,7 +11,7 @@ export default async function Header() {
   const session = await auth();
 
   const isLogged = session?.user;
-  const userRole = 'vendedor';
+  const userRole = session?.user.role
   /* const userRole = session?.user?.role; */
 
   const stylesClient = "header-nav flex py-2 justify-center w-full sticky top-0 z-10"
@@ -33,7 +33,7 @@ export default async function Header() {
 
         {/* Navigation */}
         <nav className="flex justify-center col-span-4 gap-6 font-bold">
-          {userRole === 'vendedor' ? (
+          {userRole === 'admin' ? (
             <NavUserVendedor />
           ) : (
             <NavUserClient />
@@ -58,7 +58,7 @@ export default async function Header() {
           </div>
         ) : (
           <div className="flex justify-end items-center gap-6 col-span-1">
-            <CartButton />
+            {userRole != "admin"? <CartButton /> : null} 
             <NavDropdown />
           </div>
         )}

@@ -11,13 +11,14 @@ interface PieChartData {
     labels: string[];
 }
 
-export default function DashboardPage() {
+export default function SalesCharts({salerId}) {
     const [currentDate, setCurrentDate] = useState(''); // Estado para la fecha actual
     const [totalSoldData, setTotalSoldData] = useState([]); // Estado para los datos de ventas totales
     const [totalAmountSoldData, setTotalAmountSoldData] = useState([]); // Estado para las unidades vendidas
     const [amountProductsSold, setAmountProductsSold] = useState([]); // Estado para el gráfico de torta
     const [loading, setLoading] = useState(true); // Estado de carga
-
+    const [error, setError] = useState(false)
+    console.log(salerId)
     // Obtener la fecha actual
     useEffect(() => {
         const today = new Date();
@@ -34,8 +35,8 @@ export default function DashboardPage() {
     useEffect(() => {
         const fetchData = async () => {
             try {
-                const totalSold = await getTotalSold('ads');
-                const amountProducts = await getAmountByProductsSold('ads');
+                const totalSold = await getTotalSold(salerId);
+                const amountProducts = await getAmountByProductsSold(salerId);
 
                 const totalSoldData = totalSold.map(data => ({
                     x: data._id,
@@ -68,45 +69,18 @@ export default function DashboardPage() {
         );
     }
 
+    if(error){
+        return(
+            <div>
+                Error al cargar la información
+            </div>
+        )
+    }
+
     return (
         <div className='bg-gray-100'>
             <div className="container flex flex-col gap-6 mx-auto min-h-screen p-6">
-                {/* Encabezado con información del usuario */}
-                <div className="flex justify-between items-center bg-white rounded-2xl  p-6">
-                    <div className="flex items-center gap-4">
-                        {/* Foto de perfil */}
-                        <img
-                            src="/next.svg" // Reemplaza con la ruta de la foto de perfil
-                            alt="Profile Picture"
-                            className="w-12 h-12 rounded-full object-cover border border-gray-300"
-                        />
-                        {/* Información del usuario */}
-                        <div>
-                            <h1 className="text-2xl font-bold text-gray-800">Hello, Margaret</h1>
-                            <p className="text-sm text-gray-500">Track you progress here. You almost reach a goal!</p>
-                        </div>
-                    </div>
-                    {/* Fecha con ícono */}
-                    <div className="flex items-center gap-2">
-                        <span className="text-gray-700 text-sm">{currentDate}</span>
-                        <div className="bg-gray-200 p-2 rounded-full">
-                            <svg
-                                xmlns="http://www.w3.org/2000/svg"
-                                className="h-6 w-6 text-gray-600"
-                                fill="none"
-                                viewBox="0 0 24 24"
-                                stroke="currentColor"
-                            >
-                                <path
-                                    strokeLinecap="round"
-                                    strokeLinejoin="round"
-                                    strokeWidth="2"
-                                    d="M8 7V3m8 4V3m-9 4h10M3 11h18M5 11v10a2 2 0 002 2h10a2 2 0 002-2V11"
-                                />
-                            </svg>
-                        </div>
-                    </div>
-                </div>
+                
 
                 {/* Contenido principal */}
                 <div className="grid grid-cols-1 lg:grid-cols-2 gap-6 mb-6">

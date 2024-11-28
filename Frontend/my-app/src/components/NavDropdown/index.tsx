@@ -1,10 +1,8 @@
 "use client"
 import { Menu, MenuButton, MenuItem, MenuItems } from '@headlessui/react'
 import { ChevronDownIcon } from '@heroicons/react/20/solid'
-import { auth } from '@/auth';
 import { signOut } from 'next-auth/react';
 export default function NavDropdown() {
-
 
     return (
         <Menu as="div" className="w-fit relative inline-block text-left">
@@ -29,7 +27,9 @@ export default function NavDropdown() {
                 </MenuItem>
                 <MenuItem>
                     <button
-                    onClick={() => signOut()}
+                    onClick={() => {
+                        signOut({redirectTo: "/", redirect: true})
+                    }}
                     className="w-full text-left block px-4 py-2 text-sm text-gray-700 data-[focus]:bg-gray-100 data-[focus]:text-gray-900 data-[focus]:outline-none"
                     >
                     Cerrar Sesión
