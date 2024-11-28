@@ -2,7 +2,7 @@ import { Request, Response } from "express";
 import orderService from "./service";
 import { IOrder } from "./types";
 
-const { createOrder, getOrdersByUserId, getOrderById, getOrdersBySellerId } = orderService;
+const { createOrder, getOrdersByUserId, getOrderById, getOrdersBySellerId, getTotalSold, getAmountByProductsSold } = orderService;
 
 class OrderController {
   async createOrder(req: Request, res: Response) {
@@ -41,6 +41,26 @@ class OrderController {
       const sellerId = req.params.id;
       const salesHistory = await getOrdersBySellerId(sellerId);
       res.status(200).json(salesHistory);
+    } catch (error) {
+      res.status(400).json({ message: (error as Error).message });
+    }
+  }
+
+  async getTotalSold(req: Request, res: Response){
+    try {
+      const sellerId = req.params.id;
+      const totalSold = await getTotalSold(sellerId);
+      res.status(200).json(totalSold);
+    } catch (error) {
+      res.status(400).json({ message: (error as Error).message });
+    }
+  }
+
+  async getAmountByProductsSold(req: Request, res: Response){
+    try {
+      const sellerId = req.params.id;
+      const totalSold = await getAmountByProductsSold(sellerId);
+      res.status(200).json(totalSold);
     } catch (error) {
       res.status(400).json({ message: (error as Error).message });
     }
