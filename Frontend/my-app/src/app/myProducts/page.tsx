@@ -1,6 +1,7 @@
-"use client"
-import React, { useEffect, useState } from 'react';
-import { useRouter } from 'next/navigation';
+"use client";
+import React, { useEffect, useState } from "react";
+import { useRouter } from "next/navigation";
+import DataTable from "react-data-table-component";
 
 interface Product {
   _id: string;
@@ -19,57 +20,111 @@ const MyProducts: React.FC = () => {
   const router = useRouter();
 
   useEffect(() => {
-    // Reemplaza esta URL con la URL de tu API
-    fetch('http://localhost:5000/api/products/myProducts/673d10ec57366646c59afbb8')
-      .then(response => response.json())
-      .then(data => {
+    fetch("http://localhost:5000/api/products/myProducts/673d10ec57366646c59afbb8")
+      .then((response) => response.json())
+      .then((data) => {
         if (Array.isArray(data)) {
           setProducts(data);
         } else {
-          console.error('Expected an array but got:', data);
+          console.error("Expected an array but got:", data);
         }
       })
-      .catch(error => console.error('Error fetching products:', error));
+      .catch((error) => console.error("Error fetching products:", error));
   }, []);
 
   const handleEdit = (id: string) => {
     router.push(`/myProducts/${id}`);
   };
 
-  return (
-    <div className="max-w-7xl mx-auto my-auto py-10 text-slate-900">
-      <h2 className="text-2xl font-bold text-center text-gray-800 mb-6">Mis Productos</h2>
-      <ul className="space-y-4">
-        {products.length > 0 ? (
-          products.map(product => (
-            <li key={product._id} className="flex items-center justify-between p-4 bg-gray-100 rounded-lg shadow-md">
-              <div className="flex items-center">
-                {product.image[0] ? (
-                  <img src={product.image[0]} alt={product.name} className="w-24 h-24 rounded-lg mr-4" />
-                ) : (
-                  <div className="w-24 h-24 rounded-lg mr-4 bg-gray-200 flex items-center justify-center">
-                    <span className="text-gray-500">No Image</span>
-                  </div>
-                )}
-                <div>
-                  <h3 className="text-lg font-bold text-gray-800">{product.name}</h3>
-                  {/* <p className="text-gray-600">{product.description}</p> */}
-                  <p className="text-gray-600">Stock: {product.stock}</p>
-                  <p className="text-gray-600">Precio: ${product.price}</p>
-                </div>
-              </div>
-              <button
-                onClick={() => handleEdit(product._id)}
-                className="px-4 py-2 bg-blue-500 text-white rounded-md hover:bg-blue-600"
-              >
-                Editar
-              </button>
-            </li>
-          ))
+  const columns = [
+    {
+      name: "Imagen",
+      selector: (row: Product) =>
+        row.image[0] ? (
+          <img
+            src={row.image[0]}
+            alt={row.name}
+            className="w-16 h-16 rounded-lg object-cover"
+          />
         ) : (
-          <p className="text-center text-gray-600">No se encontraron productos.</p>
-        )}
-      </ul>
+          <div className="w-16 h-16 bg-gray-200 flex items-center justify-center rounded-lg">
+            <span className="text-gray-500">No Image</span>
+          </div>
+        ),
+      center: true,
+      grow: 0,
+      omit: window.innerWidth <= 768, // Ocultar columna en dispositivos pequeños
+    },
+    {
+      name: "Nombre",
+      selector: (row: Product) => row.name,
+      sortable: true,
+      wrap: true, // Permitir que el texto se ajuste
+    },
+    {
+      name: "Stock",
+      selector: (row: Product) => row.stock,
+      sortable: true,
+      center: true,
+    },
+    {
+      name: "Precio",
+      selector: (row: Product) => `$${row.price}`,
+      sortable: true,
+      center: true,
+    },
+    {
+      name: "Acciones",
+      selector: (row: Product) => (
+        <button
+          onClick={() => handleEdit(row._id)}
+          className="px-4 py-2 bg-[#2a2a2a] text-white rounded-md hover:bg-gray-800"
+        >
+          Editar
+        </button>
+      ),
+      center: true,
+      grow: 0,
+    },
+  ];
+
+  const customStyles = {
+    rows: {
+      style: {
+        minHeight: "72px", // Altura mínima de filas
+      },
+    },
+    headCells: {
+      style: {
+        backgroundColor: "#f3f4f6",
+        fontSize: "16px",
+        fontWeight: "bold",
+      },
+    },
+    cells: {
+      style: {
+        wordBreak: "break-word", // Ajuste de texto para pantallas pequeñas
+      },
+    },
+  };
+
+  return (
+    <div className="max-w-7xl mx-auto my-auto px-4 py-10 text-slate-900">
+      <h2 className="text-2xl font-bold text-center text-gray-800 mb-6">
+        Mis Productos
+      </h2>
+      {products.length > 0 ? (
+        <DataTable
+          columns={columns}
+          data={products}
+          pagination
+          responsive
+          highlightOnHover
+          customStyles={customStyles}
+        />
+      ) : (
+        <p className="text-center text-gray-600">No se encontraron productos.</p>
+      )}
     </div>
   );
 };
