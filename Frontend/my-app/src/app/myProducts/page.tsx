@@ -33,7 +33,7 @@ const MyProducts: React.FC = () => {
   }, []);
 
   const handleEdit = (id: string) => {
-    router.push(`/api/products/EditProduct/${id}`);
+    router.push(`/myProducts/${id}`);
   };
 
   return (
@@ -44,7 +44,13 @@ const MyProducts: React.FC = () => {
           products.map(product => (
             <li key={product._id} className="flex items-center justify-between p-4 bg-gray-100 rounded-lg shadow-md">
               <div className="flex items-center">
-                <img src={product.image[0]} alt={product.name} className="w-24 h-24 rounded-lg mr-4" />
+                {product.image[0] ? (
+                  <img src={product.image[0]} alt={product.name} className="w-24 h-24 rounded-lg mr-4" />
+                ) : (
+                  <div className="w-24 h-24 rounded-lg mr-4 bg-gray-200 flex items-center justify-center">
+                    <span className="text-gray-500">No Image</span>
+                  </div>
+                )}
                 <div>
                   <h3 className="text-lg font-bold text-gray-800">{product.name}</h3>
                   <p className="text-gray-600">{product.description}</p>
