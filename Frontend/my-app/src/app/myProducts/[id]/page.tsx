@@ -106,17 +106,19 @@ const ProductCard: React.FC = () => {
   };
 
   if (!product) {
-    return <div>Loading...</div>;
+    return <div className="flex justify-center items-center h-screen"><div className="text-xl">Loading...</div></div>;
   }
 
   return (
-    <div className="max-w-2xl mx-auto p-6 bg-white rounded-lg shadow-lg">
-      <div className="flex items-center mb-6">
-        {formData.image && formData.image.map((img, index) => (
-          <img key={index} src={img} alt="Product" className="w-24 h-24 rounded-full mr-4" />
-        ))}
+    <div className="max-w-4xl mx-auto p-6 bg-white rounded-lg shadow-lg">
+      <div className="flex flex-col md:flex-row items-center mb-6">
+        <div className="grid grid-cols-2 gap-4">
+          {formData.image && formData.image.map((img, index) => (
+            <img key={index} src={img} alt="Product" className="w-24 h-24 md:w-48 md:h-48 rounded-lg object-cover" />
+          ))}
+        </div>
         {editMode && (
-          <div className="flex flex-col">
+          <div className="flex flex-col mt-4 md:mt-0 md:ml-6">
             <input
               type="file"
               accept="image/*"
@@ -144,8 +146,7 @@ const ProductCard: React.FC = () => {
       <div className="mb-4">
         <label className="block text-gray-700">Descripción</label>
         {editMode ? (
-          <input
-            type="text"
+          <textarea
             name="description"
             value={formData.description}
             onChange={handleChange}
@@ -180,7 +181,7 @@ const ProductCard: React.FC = () => {
             className="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
           />
         ) : (
-          <p className="text-gray-800">{product.price}</p>
+          <p className="text-gray-800">${product.price}</p>
         )}
       </div>
       <div className="mb-4">
