@@ -2,9 +2,15 @@
 //import { registerOrder } from "@/services/orderService"; // Importar el servicio para registrar órdenes
 import { useCart } from "@/context/CartContext";
 import CartProduct from "@/components/CartProduct"
+import { useSession } from "next-auth/react"
+import { useRouter } from "next/navigation";
+import { useEffect } from "react";
 
 
 export default function Page(){
+    const router = useRouter()
+    const {data: session} = useSession()
+    
     const {cart, addOneToCart, substractOneFromCart, removeFromCart} = useCart()
     let total = 0
     cart.forEach(product => total += (product.quantity * product.price))
@@ -19,7 +25,7 @@ export default function Page(){
         const totalPrice = cart.reduce((total, item) => total + item.price * item.quantity, 0);
     
         const orderData = {
-            user_id: "673d0f3557366646c59afbb6", // Reemplaza esto con el ID del usuario logueado
+            user_id: session?.user.id, // Reemplaza esto con el ID del usuario logueado
             products: items,
             total_price: totalPrice,
         };
@@ -55,6 +61,15 @@ export default function Page(){
         const totalPrice = cart.reduce((total, item) => total + item.price * item.quantity, 0);
 
         try {
+          console.log("hola")
+          const mailRequest = await fetch(`${process.env.NEXT_PUBLIC_API_HOST}/mails/sendMail/${session.user.email}`, {
+            method: "POST",
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify(items),
+          });
+  
+          const mailResponse = await mailRequest.json()
+          console.log(mailResponse, `${process.env.NEXT_PUBLIC_API_HOST}/mails/sendMail/${session.user.email}`)
 
           const response = await fetch("/api/mercadopago", {
             method: "POST",
@@ -72,6 +87,10 @@ export default function Page(){
           console.error("Error al generar el pago:", error);
         }
       };
+
+      if(!session){
+        return
+      }
 
     return(
         <main className="grid grid-cols-3 w-9/12 mx-auto mt-5 gap-4 ">
