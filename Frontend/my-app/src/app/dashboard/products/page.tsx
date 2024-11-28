@@ -2,6 +2,8 @@
 import React, { useEffect, useState } from "react";
 import { useRouter } from "next/navigation";
 import DataTable from "react-data-table-component";
+import { useSession } from 'next-auth/react';
+
 
 interface Product {
   _id: string;
@@ -16,24 +18,32 @@ interface Product {
 }
 
 const MyProducts: React.FC = () => {
+  const {data: session, status} = useSession()
   const [products, setProducts] = useState<Product[]>([]);
   const router = useRouter();
-
+  const userId = session?.user.userId
   useEffect(() => {
-    fetch("http://localhost:5000/api/products/myProducts/673d10ec57366646c59afbb8")
-      .then((response) => response.json())
-      .then((data) => {
+    console.log(status)
+    if(status == "loading" || status == "unauthenticated"){
+      console.log("hola")
+      return
+    }
+    // Reemplaza esta URL con la URL de tu API
+    fetch(`${process.env.NEXT_PUBLIC_API_HOST}/products/myProducts/${userId}`)
+      .then(response => response.json())
+      .then(data => {
         if (Array.isArray(data)) {
+          console.log(data, userId, status)
           setProducts(data);
         } else {
           console.error("Expected an array but got:", data);
         }
       })
-      .catch((error) => console.error("Error fetching products:", error));
-  }, []);
+      .catch(error => console.error('Error fetching products:', error));
+  }, [status, userId]);
 
   const handleEdit = (id: string) => {
-    router.push(`/myProducts/${id}`);
+    router.push(`/dashboard/products/${id}`);
   };
 
   const columns = [

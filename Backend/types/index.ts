@@ -19,8 +19,8 @@ export interface IProduct {
   stock?: number;
   // image?: string;
   image?: string[];
-  // categoryId: string;
-  // subCategoryId?: string
+  categoryId?: string;
+  subCategoryId?: string;
 }
 
 export interface ICart {

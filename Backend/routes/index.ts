@@ -6,6 +6,7 @@ import cartRouter from "../api/cart/routes";
 import categoryRouter from "../api/category/routes";
 import orderRouter from "../api/order/routes";
 import subCategoryRouter from "../api/subCategory/routes";
+import mailRouter from "../api/mail/routes";
 
 const router = express.Router();
 
@@ -15,5 +16,6 @@ router.use("/cart", cartRouter);
 router.use("/categories", categoryRouter);
 router.use("/subCategories", subCategoryRouter);
 router.use("/orders", orderRouter);
+router.use("/mails", mailRouter);
 
 export default router;

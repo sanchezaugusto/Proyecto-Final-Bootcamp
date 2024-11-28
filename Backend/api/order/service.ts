@@ -2,7 +2,7 @@ import orderDao from "./dao";
 import { productDao } from "../product/dao";
 import { IOrder, IOrderProduct } from "./types";
 
-const { createOrder, getOrderById, getOrdersByUserId, findOrdersBySellerId } = orderDao;
+const { createOrder, getOrderById, getOrdersByUserId, findOrdersBySellerId, getTotalSold, getAmountByProductsSold } = orderDao;
 const { editProduct, getProductById } = productDao;
 
 class OrderService {
@@ -49,6 +49,24 @@ class OrderService {
     try {
       const salesHistory = await findOrdersBySellerId(sellerId);
       return salesHistory;
+    } catch (error) {
+      throw Error((error as Error).message);
+    }
+  }
+
+  async getTotalSold(sellerId: string){
+    try {
+      const totalSold = await getTotalSold(sellerId);
+      return totalSold;
+    } catch (error) {
+      throw Error((error as Error).message);
+    }
+  }
+
+  async getAmountByProductsSold(sellerId: string){
+    try {
+      const totalSold = await getAmountByProductsSold(sellerId);
+      return totalSold;
     } catch (error) {
       throw Error((error as Error).message);
     }
