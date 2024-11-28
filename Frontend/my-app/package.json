@@ -21,6 +21,7 @@
     "next": "15.0.3",
     "next-auth": "^5.0.0-beta.25",
     "react": "19.0.0-rc-66855b96-20241106",
+    "react-data-table-component": "^7.6.2",
     "react-apexcharts": "^1.6.0",
     "react-dom": "19.0.0-rc-66855b96-20241106",
     "swiper": "^11.1.15",
