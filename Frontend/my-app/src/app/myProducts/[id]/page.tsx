@@ -110,153 +110,201 @@ const ProductCard: React.FC = () => {
   }
 
   return (
-    <div className="max-w-4xl mx-auto p-6 bg-white rounded-lg shadow-lg">
-      <div className="flex flex-col md:flex-row items-center mb-6">
-        <div className="grid grid-cols-2 gap-4">
-          {formData.image && formData.image.map((img, index) => (
-            <img key={index} src={img} alt="Product" className="w-24 h-24 md:w-48 md:h-48 rounded-lg object-cover" />
-          ))}
+    <div className='bg-gray-100'>
+      <div className="bg-[#fff] max-w-4xl my-14 mx-auto p-6  rounded-2xl">
+        <div className="flex flex-col md:flex-row items-center mb-8">
+          <div className="grid grid-cols-2 gap-4">
+            {formData.image &&
+              formData.image.map((img, index) => (
+                <img
+                  key={index}
+                  src={img}
+                  alt="Product"
+                  className="w-24 h-24 md:w-48 md:h-48 rounded-xl object-cover ring-2 ring-gray-200 shadow-md"
+                />
+              ))}
+          </div>
+          {editMode && (
+            <div className="flex flex-col mt-4 md:mt-0 md:ml-8 space-y-3">
+              <label className="text-sm font-semibold text-gray-600">
+                Subir imágenes
+              </label>
+              <input
+                type="file"
+                accept="image/*"
+                multiple
+                onChange={handleFileChange}
+                className="block w-full px-4 py-2 text-sm text-gray-700 border-2 border-dashed border-gray-300 rounded-lg shadow-sm bg-gray-50 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500"
+              />
+            </div>
+          )}
         </div>
+
+        <div className="space-y-6">
+          <div>
+            <label className="block text-lg font-semibold text-gray-700 mb-2">
+              Nombre
+            </label>
+            {editMode ? (
+              <input
+                type="text"
+                name="name"
+                value={formData.name}
+                onChange={handleChange}
+                className="w-full px-4 py-2 border rounded-lg shadow-sm focus:ring-2 focus:ring-blue-500 focus:border-blue-500"
+              />
+            ) : (
+              <p className="text-lg font-medium text-gray-800">{product.name}</p>
+            )}
+          </div>
+
+          <div>
+            <label className="block text-lg font-semibold text-gray-700 mb-2">
+              Descripción
+            </label>
+            {editMode ? (
+              <textarea
+                name="description"
+                value={formData.description}
+                onChange={handleChange}
+                className="w-full px-4 py-2 border rounded-lg shadow-sm focus:ring-2 focus:ring-blue-500 focus:border-blue-500"
+              />
+            ) : (
+              <p className="text-lg font-medium text-gray-800">
+                {product.description}
+              </p>
+            )}
+          </div>
+
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+            <div>
+              <label className="block text-lg font-semibold text-gray-700 mb-2">
+                Stock
+              </label>
+              {editMode ? (
+                <input
+                  type="number"
+                  name="stock"
+                  value={formData.stock}
+                  onChange={handleChange}
+                  className="w-full px-4 py-2 border rounded-lg shadow-sm focus:ring-2 focus:ring-blue-500 focus:border-blue-500"
+                />
+              ) : (
+                <p className="text-lg font-medium text-gray-800">{product.stock}</p>
+              )}
+            </div>
+            <div>
+              <label className="block text-lg font-semibold text-gray-700 mb-2">
+                Precio
+              </label>
+              {editMode ? (
+                <input
+                  type="number"
+                  name="price"
+                  value={formData.price}
+                  onChange={handleChange}
+                  className="w-full px-4 py-2 border rounded-lg shadow-sm focus:ring-2 focus:ring-blue-500 focus:border-blue-500"
+                />
+              ) : (
+                <p className="text-lg font-medium text-gray-800">
+                  ${product.price}
+                </p>
+              )}
+            </div>
+          </div>
+
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+            <div>
+              <label className="block text-lg font-semibold text-gray-700 mb-2">
+                Categoría
+              </label>
+              {editMode ? (
+                <input
+                  type="text"
+                  name="category_id"
+                  value={formData.category_id}
+                  onChange={handleChange}
+                  className="w-full px-4 py-2 border rounded-lg shadow-sm focus:ring-2 focus:ring-blue-500 focus:border-blue-500"
+                />
+              ) : (
+                <p className="text-lg font-medium text-gray-800">
+                  {product.category_id}
+                </p>
+              )}
+            </div>
+            <div>
+              <label className="block text-lg font-semibold text-gray-700 mb-2">
+                Subcategoría
+              </label>
+              {editMode ? (
+                <input
+                  type="text"
+                  name="subCategory_id"
+                  value={formData.subCategory_id}
+                  onChange={handleChange}
+                  className="w-full px-4 py-2 border rounded-lg shadow-sm focus:ring-2 focus:ring-blue-500 focus:border-blue-500"
+                />
+              ) : (
+                <p className="text-lg font-medium text-gray-800">
+                  {product.subCategory_id}
+                </p>
+              )}
+            </div>
+          </div>
+
+          <div>
+            <label className="block text-lg font-semibold text-gray-700 mb-2">
+              Vendedor
+            </label>
+            {editMode ? (
+              <input
+                type="text"
+                name="salers_id"
+                value={formData.salers_id}
+                onChange={handleChange}
+                className="w-full px-4 py-2 border rounded-lg shadow-sm focus:ring-2 focus:ring-blue-500 focus:border-blue-500"
+              />
+            ) : (
+              <p className="text-lg font-medium text-gray-800">{product.salers_id}</p>
+            )}
+          </div>
+        </div>
+
         {editMode && (
-          <div className="flex flex-col mt-4 md:mt-0 md:ml-6">
-            <input
-              type="file"
-              accept="image/*"
-              multiple
-              onChange={handleFileChange}
-              className="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
-            />
+          <div className="flex justify-end mt-8 space-x-4">
+            <button
+              onClick={handleSave}
+              className="px-6 py-2 bg-[#2a2a2a] text-white font-semibold rounded-lg shadow-md hover:bg-[#2a2a2a99]"
+            >
+              Guardar Cambios
+            </button>
+            <button
+              onClick={handleCancel}
+              className="px-6 py-2 bg-red-500 text-white font-semibold rounded-lg shadow-md hover:bg-red-600"
+            >
+              Cancelar
+            </button>
+          </div>
+        )}
+        {!editMode && (
+          <div className="flex justify-between mt-8">
+            <button
+              onClick={handleBack}
+              className="px-6 py-2 bg-red-500 text-white font-semibold rounded-lg shadow-md hover:bg-red-600"
+            >
+              Volver
+            </button>
+            <button
+              onClick={() => setEditMode(true)}
+              className="px-6 py-2 bg-[#2a2a2a] text-white font-semibold rounded-lg shadow-md hover:bg-[#2a2a2a]"
+            >
+              Editar Producto
+            </button>
           </div>
         )}
       </div>
-      <div className="mb-4">
-        <label className="block text-gray-700">Nombre</label>
-        {editMode ? (
-          <input
-            type="text"
-            name="name"
-            value={formData.name}
-            onChange={handleChange}
-            className="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
-          />
-        ) : (
-          <p className="text-gray-800">{product.name}</p>
-        )}
-      </div>
-      <div className="mb-4">
-        <label className="block text-gray-700">Descripción</label>
-        {editMode ? (
-          <textarea
-            name="description"
-            value={formData.description}
-            onChange={handleChange}
-            className="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
-          />
-        ) : (
-          <p className="text-gray-800">{product.description}</p>
-        )}
-      </div>
-      <div className="mb-4">
-        <label className="block text-gray-700">Stock</label>
-        {editMode ? (
-          <input
-            type="number"
-            name="stock"
-            value={formData.stock}
-            onChange={handleChange}
-            className="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
-          />
-        ) : (
-          <p className="text-gray-800">{product.stock}</p>
-        )}
-      </div>
-      <div className="mb-4">
-        <label className="block text-gray-700">Precio</label>
-        {editMode ? (
-          <input
-            type="number"
-            name="price"
-            value={formData.price}
-            onChange={handleChange}
-            className="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
-          />
-        ) : (
-          <p className="text-gray-800">${product.price}</p>
-        )}
-      </div>
-      <div className="mb-4">
-        <label className="block text-gray-700">Categoría</label>
-        {editMode ? (
-          <input
-            type="text"
-            name="category_id"
-            value={formData.category_id}
-            onChange={handleChange}
-            className="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
-          />
-        ) : (
-          <p className="text-gray-800">{product.category_id}</p>
-        )}
-      </div>
-      <div className="mb-4">
-        <label className="block text-gray-700">Subcategoría</label>
-        {editMode ? (
-          <input
-            type="text"
-            name="subCategory_id"
-            value={formData.subCategory_id}
-            onChange={handleChange}
-            className="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
-          />
-        ) : (
-          <p className="text-gray-800">{product.subCategory_id}</p>
-        )}
-      </div>
-      <div className="mb-4">
-        <label className="block text-gray-700">Vendedor</label>
-        {editMode ? (
-          <input
-            type="text"
-            name="salers_id"
-            value={formData.salers_id}
-            onChange={handleChange}
-            className="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
-          />
-        ) : (
-          <p className="text-gray-800">{product.salers_id}</p>
-        )}
-      </div>
-      {editMode && (
-        <div className="flex space-x-4">
-          <button
-            onClick={handleSave}
-            className="mt-4 px-4 py-2 bg-blue-500 text-white rounded-md hover:bg-blue-600"
-          >
-            Guardar Cambios
-          </button>
-          <button
-            onClick={handleCancel}
-            className="mt-4 px-4 py-2 bg-gray-500 text-white rounded-md hover:bg-gray-600"
-          >
-            Cancelar
-          </button>
-        </div>
-      )}
-      {!editMode && (
-        <button
-          onClick={() => setEditMode(true)}
-          className="mt-4 px-4 py-2 bg-blue-500 text-white rounded-md hover:bg-blue-600"
-        >
-          Editar Producto
-        </button>
-      )}
-      <button
-        onClick={handleBack}
-        className="mt-4 px-4 py-2 bg-gray-500 text-white rounded-md hover:bg-gray-600"
-      >
-        Volver
-      </button>
     </div>
+
   );
 };
 
