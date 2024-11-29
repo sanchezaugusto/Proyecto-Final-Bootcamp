@@ -1,6 +1,3 @@
-import React from 'react';
-import Image from 'next/image';
-
 export default function Footer() {
   return (
     <footer className="bg-[#2a2a2a] text-white py-10">
@@ -39,21 +36,21 @@ export default function Footer() {
               className="text-gray-200 hover:opacity-50 hover:text-white transition-colors"
               aria-label="Facebook"
             >
-              <Image src="/social/facebook.svg" alt="Facebook" width={24} height={24} />
+              <img src="/social/facebook.svg" alt="Facebook" />
             </a>
             <a
               href="#"
               className="text-gray-200 hover:opacity-50 hover:text-white transition-colors"
               aria-label="Instagram"
             >
-              <Image src="/social/ig.svg" alt="Instagram" width={24} height={24} />
+              <img src="/social/ig.svg" alt="Instagram" />
             </a>
             <a
               href="#"
               className="text-gray-200 hover:opacity-50 hover:text-white transition-colors"
               aria-label="X"
             >
-              <Image src="/social/x.svg" alt="X" width={24} height={24} />
+              <img src="/social/x.svg" alt="X" />
             </a>
           </div>
         </div>
@@ -70,7 +67,7 @@ export default function Footer() {
                 type="text"
                 id="name"
                 placeholder="Tu nombre"
-                className="w-full bg-gray-100 text-white rounded-md p-2 focus:outline-none focus:ring-2 focus:ring-gray-200"
+                className="w-full bg-gray-100 text-black rounded-md p-2 focus:outline-none focus:ring-2 focus:ring-gray-200"
               />
             </div>
             <div>
@@ -81,7 +78,7 @@ export default function Footer() {
                 type="email"
                 id="email"
                 placeholder="Tu correo o empresa"
-                className="w-full bg-gray-100 text-white rounded-md p-2 focus:outline-none focus:ring-2 focus:ring-gray-200"
+                className="w-full bg-gray-100 text-black rounded-md p-2 focus:outline-none focus:ring-2 focus:ring-gray-200"
               />
             </div>
             <div>
@@ -92,7 +89,7 @@ export default function Footer() {
                 id="message"
                 placeholder="Tu mensaje"
                 rows={4}
-                className="w-full bg-gray-100 text-white rounded-md p-2 focus:outline-none focus:ring-2 focus:ring-gray-200"
+                className="w-full bg-gray-100 text-black rounded-md p-2 focus:outline-none focus:ring-2 focus:ring-gray-200"
               ></textarea>
             </div>
             <button
