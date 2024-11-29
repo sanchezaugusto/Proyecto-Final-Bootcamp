@@ -112,10 +112,10 @@ export default function Page({ params }: { params: { id: string } }) {
         <div className="p-4 md:p-10 flex flex-col flex-1 gap-4 md:gap-10">
           <figure
             className="border border-gray-300 w-full h-40 md:h-[500px] p-4 md:p-6 rounded-3xl overflow-hidden cursor-pointer"
-            onClick={() => openModal(product.image[0])}
+            onClick={openModal}
           >
             <img
-              src={selectedImage}
+              src={selectedImage || ''}
               alt={`imagen del producto ${product.name}`}
               className="w-full h-full object-contain transition-all hover:scale-110"
             />
