@@ -1,3 +1,6 @@
+import React from 'react';
+import Image from 'next/image';
+
 export default function Footer() {
   return (
     <footer className="bg-[#2a2a2a] text-white py-10">
@@ -27,8 +30,6 @@ export default function Footer() {
           </nav>
         </div>
 
-
-
         {/* Redes Sociales */}
         <div className="mt-8 md:mt-0">
           <h2 className="text-xl font-semibold mb-4">Síguenos</h2>
@@ -38,21 +39,21 @@ export default function Footer() {
               className="text-gray-200 hover:opacity-50 hover:text-white transition-colors"
               aria-label="Facebook"
             >
-              <i className="fab fa-facebook-f"><img src="/social/facebook.svg" alt="" /></i>
-            </a>
-            <a
-              href="#"
-              className="text-gray-200 hover:opacity-50 hover:text-white transition-colors"
-              aria-label="Twitter"
-            >
-              <i className="fab fa-twitter"><img src="/social/ig.svg" alt="" /></i>
+              <Image src="/social/facebook.svg" alt="Facebook" width={24} height={24} />
             </a>
             <a
               href="#"
               className="text-gray-200 hover:opacity-50 hover:text-white transition-colors"
               aria-label="Instagram"
             >
-              <i className="fab fa-instagram"><img src="/social/x.svg" alt="" /></i>
+              <Image src="/social/ig.svg" alt="Instagram" width={24} height={24} />
+            </a>
+            <a
+              href="#"
+              className="text-gray-200 hover:opacity-50 hover:text-white transition-colors"
+              aria-label="X"
+            >
+              <Image src="/social/x.svg" alt="X" width={24} height={24} />
             </a>
           </div>
         </div>
@@ -90,7 +91,7 @@ export default function Footer() {
               <textarea
                 id="message"
                 placeholder="Tu mensaje"
-                rows= {4}
+                rows={4}
                 className="w-full bg-gray-100 text-white rounded-md p-2 focus:outline-none focus:ring-2 focus:ring-gray-200"
               ></textarea>
             </div>
@@ -102,8 +103,6 @@ export default function Footer() {
             </button>
           </form>
         </div>
-
-
       </div>
 
       {/* Línea divisoria */}
