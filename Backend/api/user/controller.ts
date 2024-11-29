@@ -42,10 +42,19 @@ class UserController {
   }
   async createUser(req: Request, res: Response) {
     try {
-      const user = await createUser(req.body);
-      return res.status(201).json(user);
+      const userBody = req.body;
+      const file = req.file; 
+  
+      if (!file) {
+        res.status(400).json({ message: 'No file uploaded' });
+        return;
+      }
+
+      const user = await createUser(userBody, file.path);
+      res.status(201).json(user);
     } catch (error) {
-      return res.status(400).json({ error: (error as Error).message });
+      console.error('Error creating user:', error);
+      res.status(500).json({ message: 'Server error', error: (error as Error).message });
     }
   }
   async loginUser(req: Request, res: Response) {
@@ -57,6 +66,7 @@ class UserController {
       return res.status(400).json({ error: (error as Error).message });
     }
   }
+  
   async deleteUser(req: Request, res: Response) {
     try {
       const user = await deleteUser(req.params.id);
@@ -67,8 +77,15 @@ class UserController {
   }
   async editUser(req: Request, res: Response) {
     const userId = req.params.id;
+    const filePath = req.file?.path; 
+  
+    if (!filePath) {
+      return res.status(400).json({ error: "File path is required" });
+    }
+  
     try {
-      const user = await editUser(userId, req.body);
+      const user = await editUser(userId, req.body, filePath);
+      console.log(user);
       return res.status(200).json(user);
     } catch (error) {
       return res.status(400).json({ error: (error as Error).message });

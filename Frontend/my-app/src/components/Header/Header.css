@@ -1,0 +1,15 @@
+.header-nav {
+    color: black;
+    height: max-content;
+
+    animation: enhance-header linear both;
+    animation-timeline: scroll(root);
+    animation-range: 0 200px;
+}
+
+@keyframes enhance-header {
+    to {
+        backdrop-filter: blur(8px);
+        box-shadow: 10px 10px 30px rgb(0, 0, 0, .2);
+    }
+}

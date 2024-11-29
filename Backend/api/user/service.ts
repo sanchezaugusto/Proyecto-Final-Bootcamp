@@ -3,6 +3,8 @@ import { userDao } from "./dao";
 import { compare } from "bcrypt";
 import { sign } from "jsonwebtoken";
 import { config } from "dotenv";
+import fs from "fs";
+import cloudinary from "../../config/cloudinary";
 
 config();
 
@@ -41,12 +43,29 @@ class UserService {
       throw Error((error as Error).message);
     }
   }
-  async createUser(user: IUser) {
+  async createUser(userData: IUser, filePath: string) {
     try {
-      const newUser = await createUser(user);
-      return newUser;
+
+      const uploadResult = await cloudinary.uploader.upload(filePath, {
+        folder: 'users',
+      });
+
+
+      fs.unlinkSync(filePath);
+
+ 
+      const user = {
+        ...userData,
+        image: uploadResult.secure_url, 
+      };
+
+      console.log('User input to save service:', user);
+
+
+      return await createUser(user);
     } catch (error) {
-      throw Error((error as Error).message);
+      console.error('Error in service:', error);
+      throw new Error((error as Error).message);
     }
   }
   async loginUser(user: { email: string; password: string }) {
@@ -75,15 +94,23 @@ class UserService {
       throw new Error((error as Error).message);
     }
   }
-  async editUser(id: string, user: IUser) {
-    const { firts_name, last_name, user_name, email, avatar } = user;
+  async editUser(id: string, user: IUser, filePath: string) {
+    const uploadResult = await cloudinary.uploader.upload(filePath, {
+      folder: 'users',
+    });
+    fs.unlinkSync(filePath);
+    const image = uploadResult.secure_url; 
+    const { first_name, last_name, username, email } = user; 
+    
     const dbPayload = {
-      ...(firts_name ? { firts_name } : {}),
+      ...(first_name ? { first_name } : {}),
       ...(last_name ? { last_name } : {}),
-      ...(user_name ? { user_name } : {}),
+      ...(username ? { username } : {}),
       ...(email ? { email } : {}),
-      ...(avatar ? { avatar } : {}),
+      ...(image ? { image } : {}), 
     };
+    console.log('id input:', id);
+    console.log('DB payload:', dbPayload);
     try {
       const editedUser = await editUser(id, dbPayload);
       return editedUser;

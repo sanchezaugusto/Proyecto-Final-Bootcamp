@@ -1,7 +1,7 @@
 export interface IEditUserPayload {
-  firts_name?: string;
+  first_name?: string;
   last_name?: string;
-  user_name?: string;
+  username?: string;
   email?: string;
-  avatar?: string;
+  image?: string;
 }

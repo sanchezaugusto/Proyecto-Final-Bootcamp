@@ -1,39 +1,70 @@
 import categoryDao from "./dao";
 
-const { getCategories, createCategory, updateCategory, deleteCategory } =
+const { getCategoryById, getCategories, createCategory, addSubCategoriesToCategory, updateCategory, deleteCategory } =
   categoryDao;
 
-class CaterogySercice {
+class CategorySercice {
   async getCategories() {
     try {
-      return await getCategories();
+      const categories = await getCategories()
+      return categories;
     } catch (error) {
-      throw Error((error as Error).message);
+      throw new Error((error as Error).message);
     }
   }
-  async createCategory(category: string) {
+  async getCategoryById(id: string){
     try {
-      return await createCategory(category);
+      const getCategory = await getCategoryById(id)
+      return getCategory
     } catch (error) {
-      throw Error((error as Error).message);
+        throw Error((error as Error).message);
     }
   }
-  async updateCategory(id: string, category: string) {
+  async createCategory(category: { name: string; subCategories?: { id: string }[] }) {
     try {
-      return await updateCategory(id, category);
+      const newCategory = await createCategory(category);
+      return newCategory;
     } catch (error) {
-      throw Error((error as Error).message);
+      throw new Error((error as Error).message);
+    }
+  }
+  
+  async addSubCategoriesToCategory(categoryId: string, subCategoryIds: { id: string }[]) {
+    try {
+      const updatedCategory = await addSubCategoriesToCategory(categoryId, subCategoryIds);
+      return updatedCategory;
+    } catch (error) {
+      throw new Error((error as Error).message);
+    }
+  }
+  async updateCategory(id: string, category: { name: string; subCategories?: { id: string }[] }) {
+    try {
+      const updatedCategory = await updateCategory(
+        id,
+        {
+          name: category.name,
+          ...(category.subCategories && { subCategories: category.subCategories }),
+        }
+      )
+  
+      return updatedCategory;
+    } catch (error) {
+      throw new Error((error as Error).message);
     }
   }
   async deleteCategory(id: string) {
     try {
-      return await deleteCategory(id);
+      const deletedCategory = await deleteCategory(id);
+      if (!deletedCategory) throw new Error("Categoría no encontrada");
+      return deletedCategory;
     } catch (error) {
-      throw Error((error as Error).message);
+      throw new Error((error as Error).message);
     }
   }
+
+  
 }
 
-const categoryService = new CaterogySercice();
+const categoryService = new CategorySercice();
 
 export default categoryService;

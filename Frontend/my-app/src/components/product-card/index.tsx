@@ -1,53 +1,52 @@
 import { Product } from "@/types/product";
 import { useRouter } from "next/navigation";
+import AddToCartButton from "../buttons/add-cart-button/AddToCartButton";
 
 interface ProductCardProps {
-  product: Product;
+  product: Product,
+  addToCart: (product: Product) => void;
 }
 
-const truncateText = (text: string, maxLength: number) => {
-  if (text.length <= maxLength) {
-    return text;
-  }
-  return text.substring(0, maxLength) + '...';
-};
 
-const ProductCard: React.FC<ProductCardProps> = ({ product }) => {
+const ProductCard: React.FC<ProductCardProps> = ({ product, addToCart }) => {
   const router = useRouter();
-
+  
   const handleClick = () => {
-    router.push(`/products/${product.id}`);
+    router.push(`/products/${product._id}`);
+  };
+  
+  const truncateText = (text: string, maxLength: number) => {
+    if (text.length <= maxLength) {
+      return text;
+    }
+    return text.substring(0, maxLength) + '...';
   };
 
   return (
-    
-    <div
-      onClick={handleClick}
-      className="h-[600px] bg-white py-8 px-4 border border-gray-300 rounded-2xl flex flex-col items-center justify-between text-slate-900 shadow-xl gap-4"
-    >
-      <div className="flex flex-col justify-center items-center gap-4">
-
-        <figure className="w-full h-[230px] overflow-hidden cursor-pointer">
-            <img
-              src={product.image}
-              alt={product.title}
-              className="w-full h-full object-contain transition-all hover:scale-110"
-            />
-        </figure>
-
-
-        <h2 className="mt-2h-[40px] w-[300px] truncate line-clamp-3 font-bold text-lg md:text-xl text-center">
-          {product.title}
-        </h2>
-
-        <p className="max-w-[280px] h-[100px] text-gray-500 text-sm md:text-base text-center line-clamp-3">
-          {truncateText(product.description, 60)}
-        </p>
-        
-        <p className="font-bold text-center text-xl">Precio: ${product.price}</p>
-      
+    <div onClick={handleClick} className="max-w-sm rounded-2xl overflow-hidden shadow-lg hover:shadow-xl transition-shadow duration-300 ease-in-out cursor-pointer flex flex-col justify-between">
+  
+      <div className="overflow-hidden">
+        <img
+          src={product.image[0]}
+          alt={product.name}
+          className="w-full h-64 p-4 object-contain bg-white transition-all hover:scale-110"
+        />
       </div>
 
+      <div className="flex flex-col p-6 gap-6">
+        <div>
+          <p className="font-bold text-xl mb-2">{product.name}</p>
+          <p className="text-gray-700 text-base">{truncateText(product.description, 60)}</p>
+        </div>
+
+        <div className="">
+          <span className="text-gray-900 font-bold text-lg">Price ${product.price}</span>
+        </div>
+
+      </div>
+        {/* <div className="flex justify-start">
+          <AddToCartButton onClick={() => {addToCart}}/>
+        </div> */}
     </div>
   );
 };

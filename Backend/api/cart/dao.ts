@@ -37,9 +37,9 @@ class CartDao {
       throw Error((error as Error).message);
     }
   }
-  async deleteCart(cart: ICart) {
+  async deleteCart(id: string) {
     try {
-      const deletedCart = await Cart.findByIdAndDelete(cart);
+      const deletedCart = await Cart.findByIdAndDelete(id);
       return deletedCart;
     } catch (error) {
       throw Error((error as Error).message);

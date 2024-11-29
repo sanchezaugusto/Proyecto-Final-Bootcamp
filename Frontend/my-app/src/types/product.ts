@@ -1,10 +1,10 @@
 // types.ts
 export type Product = {
-    id: number;
-    title: string;
+    _id: string;
+    name: string;
     price: number;
-    category: string;
+    category?: string;
     description: string;
-    image: string;
+    image: string[];
     quantity: number;
 };

@@ -9,8 +9,9 @@ const categoryRouter = express.Router();
 
 categoryRouter.get("/", getCategories);
 
-categoryRouter.use(adminRoutes);
-categoryRouter.post("/addCategory", createCategory);
+
+//categoryRouter.use(adminRoutes);
+categoryRouter.post("/createCategory", createCategory);
 categoryRouter.put("/updateCategory/:id", updateCategory);
 categoryRouter.delete("/deleteCategory/:id", deleteCategory);
 

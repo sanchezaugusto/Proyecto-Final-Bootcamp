@@ -1,7 +1,7 @@
 import { Request, Response } from "express";
 import { productService } from "./service";
 import { ISearchParams } from "./types";
-const { getProduct, getProducts, createProduct, deleteProduct, editProduct } =
+const { getProduct, getProducts, createProduct, deleteProduct, editProduct, getProductByUserId } =
   productService;
 
 class ProductController {
@@ -27,15 +27,35 @@ class ProductController {
       return res.status(400).json({ error });
     }
   }
-  async createProduct(req: Request, res: Response) {
-    const product = req.body;
+
+  async getProductByUserId(req: Request, res: Response) {
+    const { id } = req.params;
     try {
-      const newProduct = await createProduct(product);
-      return res.status(200).json(newProduct);
+      const products = await getProductByUserId(id);
+      return res.status(200).json(products);
     } catch (error) {
-      return res.status(500).json({ error });
+      return res.status(400).json({ error });
     }
   }
+  async createProduct(req: Request, res: Response) {
+    try {
+      const productBody = req.body;
+      const files = req.files as Express.Multer.File[];
+      if (!files || files.length === 0) {
+        res.status(400).json({ message: 'No file uploaded' });
+        return;
+      }
+  
+      // Delegar al servicio
+      const product = await createProduct(productBody, files);
+      console.log('Product created controller:', product);
+      res.status(201).json(product);
+    } catch (error) {
+      console.error('Error creating product:', error);
+      res.status(500).json({ message: 'Server error' });
+    }
+  }
+
   async deleteProduct(req: Request, res: Response) {
     const { id } = req.params;
     try {

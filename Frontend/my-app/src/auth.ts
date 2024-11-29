@@ -60,6 +60,7 @@ const authOptions = {
       };
       return session;
     },
+    
   },
 };
 

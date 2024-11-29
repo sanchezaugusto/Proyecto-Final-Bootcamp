@@ -1,0 +1,38 @@
+.mySwiper {
+    width: 100%;
+    height: 450px;
+    margin: auto;
+    border-radius: 40px;
+  }
+  
+  .mySwiper img {
+    object-fit: cover;
+  }
+
+.swiper-button-next,
+.swiper-button-prev {
+  background-color: #2a2a2a;
+  color: #fff !important;
+  padding: 35px;
+  border-radius: 5000px;
+  box-shadow: 6px 6px 20px rgba(0, 0, 0, 0.3);
+  transform: scale(.75);
+
+  transition: all .2s;
+}
+
+/* Hover para los botones */
+.swiper-button-next:hover,
+.swiper-button-prev:hover {
+  background-color: rgba(255, 255, 255, 0.8);
+  color: #2a2a2a !important;
+}
+
+/* Ajuste de las posiciones */
+.swiper-button-next {
+  right: 10px;
+}
+
+.swiper-button-prev {
+  left: 10px;
+}

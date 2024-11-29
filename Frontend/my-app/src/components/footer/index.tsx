@@ -1,31 +1,118 @@
-"use client";
-
+// components/Footer.jsx
 export default function Footer() {
   return (
-    <footer className="flex justify-center w-full h-32 bg-black">
-      <div className="w-[1200px] flex justify-between items-center">
-        <div>
-          <a href="http://localhost:3000/">
-            <img 
-              src={"/logo2.png"} 
-              alt="Logo" 
-              width={50} 
-              height={50} 
-              className="rounded-full" 
-            />
-          </a>
+    <footer className="bg-[#2a2a2a] text-white py-10">
+      <div className="container mx-auto flex flex-col md:flex-row justify-between">
+        {/* Sección Izquierda */}
+        <div className="mb-8 md:mb-0">
+          <h1 className="text-2xl font-bold">E-commerce</h1>
+          <nav className="mt-4 flex flex-col space-y-2">
+            <a
+              href="#"
+              className="text-gray-400 hover:text-white transition-colors"
+            >
+              Home
+            </a>
+            <a
+              href="#"
+              className="text-gray-400 hover:text-white transition-colors"
+            >
+              Productos
+            </a>
+            <a
+              href="#"
+              className="text-gray-400 hover:text-white transition-colors"
+            >
+              Nosotros
+            </a>
+          </nav>
         </div>
 
-        <div className="text-sm text-white flex flex-col gap-1">
-          <p
-            className="cursor-pointer hover:text-gray-300"
-            onClick={() => {
-              window.location.href = "https://vinorium.com";
-            }}
-          >
-            Vinorium.com
-          </p>
+
+
+        {/* Redes Sociales */}
+        <div className="mt-8 md:mt-0">
+          <h2 className="text-xl font-semibold mb-4">Síguenos</h2>
+          <div className="flex space-x-4">
+            <a
+              href="#"
+              className="text-gray-200 hover:opacity-50 hover:text-white transition-colors"
+              aria-label="Facebook"
+            >
+              <i className="fab fa-facebook-f"><img src="/social/facebook.svg" alt="" /></i>
+            </a>
+            <a
+              href="#"
+              className="text-gray-200 hover:opacity-50 hover:text-white transition-colors"
+              aria-label="Twitter"
+            >
+              <i className="fab fa-twitter"><img src="/social/ig.svg" alt="" /></i>
+            </a>
+            <a
+              href="#"
+              className="text-gray-200 hover:opacity-50 hover:text-white transition-colors"
+              aria-label="Instagram"
+            >
+              <i className="fab fa-instagram"><img src="/social/x.svg" alt="" /></i>
+            </a>
+          </div>
         </div>
+
+        {/* Formulario de Contacto */}
+        <div className="max-w-[400px] flex-1 md:px-8">
+          <h2 className="text-xl font-semibold mb-4">Contáctanos</h2>
+          <form className="space-y-4">
+            <div>
+              <label htmlFor="name" className="block text-gray-200">
+                Nombre
+              </label>
+              <input
+                type="text"
+                id="name"
+                placeholder="Tu nombre"
+                className="w-full bg-gray-100 text-white rounded-md p-2 focus:outline-none focus:ring-2 focus:ring-gray-200"
+              />
+            </div>
+            <div>
+              <label htmlFor="email" className="block text-gray-200">
+                Correo o Empresa
+              </label>
+              <input
+                type="email"
+                id="email"
+                placeholder="Tu correo o empresa"
+                className="w-full bg-gray-100 text-white rounded-md p-2 focus:outline-none focus:ring-2 focus:ring-gray-200"
+              />
+            </div>
+            <div>
+              <label htmlFor="message" className="block text-gray-200">
+                Mensaje
+              </label>
+              <textarea
+                id="message"
+                placeholder="Tu mensaje"
+                rows="4"
+                className="w-full bg-gray-100 text-white rounded-md p-2 focus:outline-none focus:ring-2 focus:ring-gray-200"
+              ></textarea>
+            </div>
+            <button
+              type="submit"
+              className="w-full bg-gray-100 text-gray-900 font-semibold rounded-md py-2 hover:bg-gray-300 transition"
+            >
+              Enviar
+            </button>
+          </form>
+        </div>
+
+
+      </div>
+
+      {/* Línea divisoria */}
+      <div className="border-t border-gray-900 mt-8"></div>
+
+      {/* Copyright */}
+      <div className="text-center text-gray-500 mt-4 text-sm">
+        © {new Date().getFullYear()} Bootcamp3. Todos los derechos reservados.
       </div>
     </footer>
   );

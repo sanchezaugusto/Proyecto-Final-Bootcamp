@@ -1,13 +1,16 @@
-"use client";
+'use client';
 
 import React, { useState, useEffect } from "react";
-//import AddToCartButton from "@/app/components/cartButton/buttonAddToCart";
-//import ButtonInput from "@/app/components/buttonInputCart/buttonInput";
+import ButtonInput from "@/components/buttons/input/ButtonInput";
+import AddToCartButton from "@/components/buttons/add-cart-button/AddToCartButton";
+import Loader from "@/components/loaders/Loader";
+import { useCart } from "@/context/CartContext";
 
 async function fetchProductById(id: string) {
   try {
-    const response = await fetch(`https://fakestoreapi.com/products/${id}`);
+    const response = await fetch(`${process.env.NEXT_PUBLIC_API_HOST}/products/${id}`);
     const data = await response.json();
+
     return data;
   } catch (error) {
     console.error("Error fetching product:", error);
@@ -28,7 +31,7 @@ const mockFetchRatingAndComments = async (productId: string) => {
 
 export default function Page({ params }: { params: { id: string } }) {
   const { id } = params;
-  
+
   const [product, setProduct] = useState<any>(null);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
@@ -38,6 +41,13 @@ export default function Page({ params }: { params: { id: string } }) {
   const [rating, setRating] = useState(0);
   const [comments, setComments] = useState<string[]>([]);
   const [newComment, setNewComment] = useState("");
+  const {addToCart} = useCart()
+
+  const handleAddToCart = () =>{
+    const productToAdd = {...product}
+    productToAdd.quantity = cantidad
+    addToCart(productToAdd)
+  }
 
   useEffect(() => {
     const getProductData = async () => {
@@ -47,6 +57,7 @@ export default function Page({ params }: { params: { id: string } }) {
         const { rating, comments } = await mockFetchRatingAndComments(id);
         setRating(rating);
         setComments(comments);
+        setSelectedImage(productData.image[0])
       } else {
         setError("Producto no encontrado.");
       }
@@ -58,8 +69,11 @@ export default function Page({ params }: { params: { id: string } }) {
 
   const handleDecrease = () => setCantidad(prev => (prev > 1 ? prev - 1 : 1));
   const handleIncrease = () => setCantidad(prev => prev + 1);
-  const openModal = (image: string) => { setSelectedImage(image); setIsModalOpen(true); };
-  const closeModal = () => { setIsModalOpen(false); setSelectedImage(null); };
+  const openModal = () => { setIsModalOpen(true); };
+  const closeModal = () => { setIsModalOpen(false); };
+  const handleSelectImage = (image) =>{
+    setSelectedImage(image)
+  }
 
   const handleCommentSubmit = () => {
     if (newComment.trim()) {
@@ -68,41 +82,61 @@ export default function Page({ params }: { params: { id: string } }) {
     }
   };
 
-  if (loading) return <p>Cargando...</p>;
+  if (loading) return <Loader />;
   if (error) return <p>Error: {error}</p>;
   if (!product) return <p>Producto no encontrado</p>;
-
+  console.log(product)
   return (
     <>
-      <div className="bg-white max-w-7xl max-h-[700px] text-slate-900 flex flex-col md:flex-row">
+      <div className="max-w-7xl min-h-[700px] mx-auto my-auto py-10 text-slate-900 flex flex-col md:flex-row">
+        <div className="grid grid-cols-2 h-fit place-content-center">
+          {product.image.map((img, index) => {
+            let style = index == 2 ? "col-span-2" : ""
+            return(
+              <figure
+              key={img}
+              className={style + " border border-gray-300 w-full h-20 md:h-[300px] p-4 md:p-6 rounded-3xl overflow-hidden cursor-pointer"}
+              onClick={() => handleSelectImage(img)}
+              >
+              <img
+                src={img}
+                alt={`imagen del producto ${product.name}`}
+                className="w-full h-full object-contain transition-all hover:scale-110"
+              />
+            </figure>
+            )
+          })}
+          
+        </div>
+
         <div className="p-4 md:p-10 flex flex-col flex-1 gap-4 md:gap-10">
           <figure
-            className="border border-gray-300 w-full h-60 md:h-[500px] p-4 md:p-6 rounded-3xl overflow-hidden cursor-pointer"
-            onClick={() => openModal(product.image)}
+            className="border border-gray-300 w-full h-40 md:h-[500px] p-4 md:p-6 rounded-3xl overflow-hidden cursor-pointer"
+            onClick={() => openModal(product.image[0])}
           >
             <img
-              src={product.image}
-              alt={`imagen del producto ${product.title}`}
+              src={selectedImage}
+              alt={`imagen del producto ${product.name}`}
               className="w-full h-full object-contain transition-all hover:scale-110"
             />
           </figure>
         </div>
 
         <div className="p-4 md:p-10 flex-1 flex flex-col justify-center">
-          <h1 className="font-bold text-2xl md:text-3xl mb-4 md:mb-10">{product.title}</h1>
+          <h1 className="font-bold text-2xl md:text-3xl mb-4 md:mb-10">{product.name}</h1>
           <p className="text-gray-500 mb-4 md:mb-10">{product.description}</p>
           <p className="font-bold text-xl md:text-2xl mb-4 md:mb-10">Precio: ${product.price}</p>
 
           <div className="flex items-center space-x-2 md:space-x-4 mt-4 md:mt-6">
-            {/* <ButtonInput onClick={handleDecrease}>-</ButtonInput> */}
+            <ButtonInput onClick={handleDecrease}>-</ButtonInput>
             <input
               type="number"
               className="w-12 md:w-16 h-8 md:h-10 text-center border-2 border-gray-300 bg-gray-200 rounded-lg"
               value={cantidad}
               readOnly
             />
-            {/* <ButtonInput onClick={handleIncrease}>+</ButtonInput>
-            <AddToCartButton /> */}
+            <ButtonInput onClick={handleIncrease}>+</ButtonInput>
+            <AddToCartButton onClick={handleAddToCart} />
           </div>
 
           <div className="mt-6 md:mt-10">
@@ -111,9 +145,8 @@ export default function Page({ params }: { params: { id: string } }) {
               {[1, 2, 3, 4, 5].map((star) => (
                 <span
                   key={star}
-                  className={`text-lg md:text-2xl ${
-                    star <= Math.round(rating) ? "text-yellow-500" : "text-gray-300"
-                  }`}
+                  className={`text-lg md:text-2xl ${star <= Math.round(rating) ? "text-yellow-500" : "text-gray-300"
+                    }`}
                 >
                   ★
                 </span>
@@ -121,6 +154,7 @@ export default function Page({ params }: { params: { id: string } }) {
               <span className="ml-2 text-gray-500 text-sm md:text-base">({rating.toFixed(1)})</span>
             </div>
           </div>
+
 
           <div className="mt-6 md:mt-10">
             <p className="font-semibold mb-2">Comentarios:</p>
@@ -141,7 +175,7 @@ export default function Page({ params }: { params: { id: string } }) {
               />
               <button
                 onClick={handleCommentSubmit}
-                className="px-4 py-2 bg-blue-500 text-white rounded-lg hover:bg-blue-600 w-full md:w-auto"
+                className="px-4 py-2 bg-green-900 text-white rounded-lg hover:bg-green-600 w-full md:w-auto"
               >
                 Comentar
               </button>
@@ -171,31 +205,3 @@ export default function Page({ params }: { params: { id: string } }) {
     </>
   );
 }
-
-
-
-// import Product from "../product";
-
-// async function fetchProduct(id: string) {
-//   try {
-//     const result = await fetch(`https://fakestoreapi.com/products/${id}`);
-//     console.log(`https://fakestoreapi.com/products/${id}`)
-//     if (!result.ok) throw new Error("Failed to fetch product");
-//     const product = await result.json();
-//     return product;
-//   } catch (error) {
-//     console.error(error);
-//     return null; 
-//   }
-// }
-
-// export default async function Page({ params }: { params: { id: string } }) {
-//   const { id } = params;
-//   const product = await fetchProduct(id as string);
-
-//   return (
-//     <div className="w-[1200px] flex flex-col items-center">
-//       {product ? <Product product={product} /> : <p>Product not found</p>}
-//     </div>
-//   );
-// }
