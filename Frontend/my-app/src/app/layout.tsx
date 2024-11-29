@@ -3,7 +3,7 @@ import type { Metadata } from "next";
 import "./globals.css";
 import {Montserrat} from "next/font/google"
 import Header from '../components/Header'
-import Footer from '@/components/Footer'
+import Footer from '../components/Footer'
 import { CartProvider } from '@/context/CartContext';
 import { SessionProvider } from "next-auth/react"; // Importar el SessionProvider
 
