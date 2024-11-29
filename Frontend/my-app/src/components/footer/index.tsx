@@ -1,5 +1,4 @@
-'use client'
-export default function Footer() {
+function Footer() {
   return (
     <footer className="bg-[#2a2a2a] text-white py-10">
       <div className="container mx-auto flex flex-col md:flex-row justify-between">
@@ -91,7 +90,7 @@ export default function Footer() {
               <textarea
                 id="message"
                 placeholder="Tu mensaje"
-                rows= {4}
+                rows= "4"
                 className="w-full bg-gray-100 text-white rounded-md p-2 focus:outline-none focus:ring-2 focus:ring-gray-200"
               ></textarea>
             </div>
@@ -117,3 +116,5 @@ export default function Footer() {
     </footer>
   );
 }
+
+export default Footer
