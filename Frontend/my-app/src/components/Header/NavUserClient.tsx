@@ -5,13 +5,10 @@ const NavUserClient = () => {
     return (
         <>
             <Link className="hover:text-gray-400 transition-colors" href="/">
-                Home
+                Inicio
             </Link>
             <Link className="hover:text-gray-400 transition-colors" href="/products">
                 Productos
-            </Link>
-            <Link className="hover:text-gray-400 transition-colors" href="/about">
-                Nosotros
             </Link>
         </>
     )
