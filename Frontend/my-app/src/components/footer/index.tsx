@@ -1,4 +1,4 @@
-// components/Footer.jsx
+'use client'
 export default function Footer() {
   return (
     <footer className="bg-[#2a2a2a] text-white py-10">
