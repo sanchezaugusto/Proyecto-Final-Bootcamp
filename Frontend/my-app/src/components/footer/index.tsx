@@ -1,4 +1,4 @@
-function Footer() {
+export default function Footer() {
   return (
     <footer className="bg-[#2a2a2a] text-white py-10">
       <div className="container mx-auto flex flex-col md:flex-row justify-between">
@@ -116,5 +116,3 @@ function Footer() {
     </footer>
   );
 }
-
-export default Footer
