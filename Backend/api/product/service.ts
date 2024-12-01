@@ -64,7 +64,6 @@ class ProductService {
   }
 
   async getProductByUserId(id: string) {
-    console.log('ID:', id); // Debug 
     try {
       const products = await getProductByUserId(id);
       return products;
@@ -75,28 +74,23 @@ class ProductService {
 
   async createProduct(productData: IProduct, files: Express.Multer.File[]) {
     try {
-      // Subir la imagen a Cloudinary
       const uploadResults = await Promise.all(
         files.map((file) =>
           cloudinary.uploader.upload(file.path, { folder: 'products' })
         )
       );
   
-    // Eliminar los archivos temporales después de subirlos
     files.forEach((file) => fs.unlinkSync(file.path));
   
-    // Crear el producto con las URLs de las imágenes
     const imageUrls = uploadResults.map((result) => result.secure_url);
 
-      // Preparar los datos del producto
     const product = {
       ...productData,
-      image: imageUrls, // Agregar las URLs de las imágenes
+      image: imageUrls, 
     };
 
       console.log('Product input to save service:', product);
   
-      // Guardar en la base de datos
       return await createProduct(product);
     } catch (error) {
       console.error('Error in service:', error);
@@ -104,40 +98,6 @@ class ProductService {
     }
   }
 
-  // async createProduct(productData: IProduct, filePath: string) {
-  //   try {
-  //     // Subir la imagen a Cloudinary
-  //     const uploadResult = await cloudinary.uploader.upload(filePath, {
-  //       folder: 'products',
-  //     });
-  
-  //     // Eliminar el archivo temporal
-  //     fs.unlinkSync(filePath);
-  
-  //     // Preparar los datos del producto
-  //     const product = {
-  //       ...productData,
-  //       image: uploadResult.secure_url, // Agregar la URL de la imagen
-  //     };
-
-  //     console.log('Product input to save service:', product);
-  
-  //     // Guardar en la base de datos
-  //     return await createProduct(product);
-  //   } catch (error) {
-  //     console.error('Error in service:', error);
-  //     throw new Error((error as Error).message);
-  //   }
-  // }
-
-  // async createProduct(product: IProduct) {
-  //   try {
-  //     const newProduct = await createProduct(product);
-  //     return newProduct;
-  //   } catch (error) {
-  //     throw Error((error as Error).message);
-  //   }
-  // }
   async editProduct(id: string, product: IProduct) {
     try {
       const updatedProduct = await editProduct(id, product);
