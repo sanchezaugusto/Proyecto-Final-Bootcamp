@@ -22,7 +22,7 @@ export default async  function HomePage() {
 
 
             <div className="container px-6 mx-auto">
-                {/* <BannersSlide /> */}
+                <BannersSlide />
             </div>
 
 
