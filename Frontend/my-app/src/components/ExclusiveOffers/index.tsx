@@ -1,4 +1,4 @@
-"use client";
+'use client'
 
 import { useEffect, useState } from "react";
 import Image from "next/image";
@@ -19,8 +19,9 @@ const ExclusiveOffers = () => {
 
                 const data: Product[] = await response.json();
 
-                // Filtrar productos menores a 100 USD
-                const affordableProducts = data.filter(product => product.price < 100);
+                // Filtrar productos menores a 
+                const affordableProducts = data.filter(product => product.price > 10000);
+
 
                 // Seleccionar 4 productos aleatorios
                 const randomProducts = affordableProducts
@@ -53,22 +54,22 @@ const ExclusiveOffers = () => {
                 Precios imperdibles
             </h2>
 
-            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
+            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 border border-spacing-0">
 
                 {products.map(product => (
                     <div
-                        key={product.id}
+                        key={product._id}
                         className="flex flex-col justify-between p-5 bg-white shadow-lg rounded-lg overflow-hidden hover:shadow-2xl transition"
                     >
-                        <Image
-                            src={product.image}
-                            alt={product.title}
+                        <img
+                            src={product.image[0]}
+                            alt={product.name}
                             width={400}
                             height={250}
                             className="w-full h-64 object-contain"
                         />
                         <div className="p-4 text-center">
-                            <h3 className="text-lg font-semibold">{product.title}</h3>
+                            <h3 className="text-lg font-semibold">{product.name}</h3>
                             <p className="text-sm text-gray-500 mb-4">
                                 Precio: ${product.price.toFixed(2)}
                             </p>
