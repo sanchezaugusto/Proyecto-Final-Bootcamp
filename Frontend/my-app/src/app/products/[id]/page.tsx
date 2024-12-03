@@ -3,7 +3,7 @@
 import React, { useState, useEffect } from "react";
 import ButtonInput from "@/components/buttons/input/ButtonInput";
 import AddToCartButton from "@/components/buttons/add-cart-button/AddToCartButton";
-import Loader from "@/components/loaders/Loader";
+import Loader from "@/components/loaders";
 import { useCart } from "@/context/CartContext";
 
 async function fetchProductById(id: string) {

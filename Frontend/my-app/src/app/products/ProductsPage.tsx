@@ -3,10 +3,10 @@ import { useEffect, useState } from "react";
 import { useSearchParams } from "next/navigation";
 import { Product } from "@/types"; //cambiar a @/types
 import ProductCard from "../../components/product-card";
-import Loader from "@/components/loaders/Loader";
+import Loader from "@/components/loaders";
 import InputSearch from "@/components/buttons/input/InputSearch";
 import { useFilter } from "@/context/FilterContext";
-import FilterSidebar from "@/components/FilterSidebar/FilterSidebar";
+import FilterSidebar from "@/components/FilterSidebar";
 import { useCart } from "@/context/CartContext";
 
 export default function ProductsPage() {

@@ -1,6 +1,6 @@
 "use client"
 
-import Loader from '@/components/loaders/Loader';
+import Loader from '@/components/loaders';
 import PieChart from '@/components/PieChart';
 import TimeSerie from '@/components/TimeSerie';
 import { getTotalSold, getAmountByProductsSold } from '@/services/ordersService';

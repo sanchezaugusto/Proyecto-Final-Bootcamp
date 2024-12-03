@@ -1,9 +1,9 @@
 "use client"
 
-import ExclusiveOffers from "../ExclusiveOffers/ExclusiveOffers"
-import PaymentMethods from "../PaymentMethods/PaymentMethods"
-import HeroSection from "../HeroSection/HeroSection"
-import FeaturesSection from "../FeaturesSection/FeaturesSection"
+import ExclusiveOffers from "../ExclusiveOffers"
+import PaymentMethods from "../PaymentMethods"
+import HeroSection from "../HeroSection"
+import FeaturesSection from "../FeaturesSection"
 import BannersSlide from "../BannersSlide/BannersSlide"
 
 const Home = () => {

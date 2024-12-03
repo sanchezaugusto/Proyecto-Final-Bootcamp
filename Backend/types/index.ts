@@ -17,7 +17,6 @@ export interface IProduct {
   description?: string;
   price?: number;
   stock?: number;
-  // image?: string;
   image?: string[];
   categoryId?: string;
   subCategoryId?: string;

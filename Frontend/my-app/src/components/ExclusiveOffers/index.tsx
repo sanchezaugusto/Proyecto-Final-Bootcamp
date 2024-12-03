@@ -3,7 +3,7 @@
 import { useEffect, useState } from "react";
 import Image from "next/image";
 import { Product } from "@/types";
-import Loader from "../loaders/Loader";
+import Loader from "../loaders";
 import Link from "next/link";
 
 const ExclusiveOffers = () => {

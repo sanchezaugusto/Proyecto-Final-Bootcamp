@@ -1,5 +1,5 @@
 import React from 'react'
-import { MarqueeDemo } from '../MarqueeDemo/MarqueeDemo'
+import { MarqueeDemo } from '../MarqueeDemo'
 
 const PaymentMethods = () => {
     return (
