@@ -1,7 +1,7 @@
 "use client";
 
 import React from "react";
-import { useFilter } from "@/contexts/FilterContext";
+import { useFilter } from "../../context/FilterContext";
 
 interface Category {
   _id: string;

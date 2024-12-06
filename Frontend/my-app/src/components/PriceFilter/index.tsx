@@ -1,7 +1,7 @@
 "use client";
 
 import React, { useState } from "react";
-import { useFilter } from "@/contexts/FilterContext";
+import { useFilter } from "@/context/FilterContext";
 
 const PriceFilter: React.FC = () => {
   const { setPriceRange } = useFilter();

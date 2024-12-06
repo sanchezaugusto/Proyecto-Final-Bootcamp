@@ -1,7 +1,7 @@
 "use client";
 
 import React from "react";
-import { useFilter } from "@/contexts/FilterContext";
+import { useFilter } from "@/context/FilterContext";
 
 const SearchBar: React.FC = () => {
   const { setKeyword } = useFilter();
