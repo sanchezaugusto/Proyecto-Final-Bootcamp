@@ -11,19 +11,18 @@ const SearchBar: React.FC = () => {
   };
 
   return (
-    <input
-      type="text"
-      placeholder="Search keyword"
-      onChange={handleSearchChange}
-      style={{
-        padding: "10px",
-        fontSize: "16px",
-        width: "100%",
-        maxWidth: "300px",
-        border: "1px solid #ccc",
-        borderRadius: "5px",
-      }}
-    />
+<div className="flex items-center justify-center">
+  <div className="rounded-lg w-full mb-6 shadow-md">
+    <div className="flex">
+      <input
+        type="text"
+        placeholder="Search keyword"
+        onChange={handleSearchChange}
+        className="p-2 text-base w-full border border-gray-300 rounded-md"
+      />
+    </div>
+  </div>
+</div>
   );
 };
 

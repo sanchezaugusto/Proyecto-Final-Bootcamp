@@ -20,7 +20,8 @@ const CategoryDropdown: React.FC<Props> = ({ categories }) => {
   };
 
   return (
-    <div>
+    <div className="mt-6">
+      <h3 className="font-bold text-lg mb-3">Categorías</h3>
       <select onChange={handleCategoryChange}>
         <option value="">Select Category</option>
         {categories.map((category) => (

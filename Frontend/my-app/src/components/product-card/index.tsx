@@ -26,11 +26,17 @@ const ProductCard: React.FC<ProductCardProps> = ({ product, addToCart }) => {
     <div onClick={handleClick} className="max-w-sm rounded-2xl overflow-hidden shadow-lg hover:shadow-xl transition-shadow duration-300 ease-in-out cursor-pointer flex flex-col justify-between">
   
       <div className="overflow-hidden">
-        <img
+        {product.image? (        
+          <img
           src={product.image[0]}
           alt={product.name}
           className="w-full h-64 p-4 object-contain bg-white transition-all hover:scale-110"
-        />
+        />):(
+          <div className="w-full h-48 bg-gray-200 flex items-center justify-center">
+          <span className="text-gray-500">No Image Available</span>
+        </div>
+        )}
+
       </div>
 
       <div className="flex flex-col p-6 gap-6">
