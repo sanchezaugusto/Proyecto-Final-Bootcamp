@@ -2,16 +2,15 @@
 
 import React, { useEffect, useState } from "react";
 import { useFilter } from "@/context/FilterContext";
-import { useCart } from "@/context/CartContext";
-import CategoryDropdown from "../../components/dropdown";
-import PriceFilter from "../../components/PriceFilter";
+import FilterSidebar from "../../components/FilterSidebar";
 import SearchBar from "@/components/SearchBar";
 import ProductCard from "@/components/product-card";
 import { Product } from "../../types";
 import { fetchProducts, fetchCategories } from "../services/api";
+import { useCart } from "@/context/CartContext";
 
 const ProductsPage = () => {
-  const { filters } = useFilter();
+  const { filters, applyFilter, filteredProducts } = useFilter();
   const [products, setProducts] = useState<Product[]>([]);
   const [categories, setCategories] = useState([]);
   const {addOneToCart} = useCart()
@@ -45,16 +44,8 @@ const ProductsPage = () => {
   return (
     <div className="bg-gray-100 min-h-screen p-8">      
       <div className="flex gap-8 container mx-auto mt-6 mt-[70px]">
-          
-        <div className="w-1/4 bg-white p-6 rounded-lg shadow-md">
-          <h2 className="text-2xl font-semibold mb-4">Filtrar</h2>
-          <div className="mb-4">
-            <CategoryDropdown categories={categories} />
-          </div>
-          <div className="mb-4">
-            <PriceFilter />
-          </div>
-        </div>
+
+      <FilterSidebar />
           
         <div className="w-3/4">
           <SearchBar />
